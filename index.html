@@ -969,6 +969,7 @@ const STEPS = [
 // ═══════════════════════════════════════
 let answers = {};
 let currentStep = 0;
+let quizStartTime = null;
 
 // ═══════════════════════════════════════
 // SCREEN SWITCHING
@@ -979,6 +980,7 @@ function showScreen(id) {
 }
 
 function startQuiz() {
+  quizStartTime = Date.now();
   renderStep(0);
   showScreen('quiz');
 }
@@ -1066,8 +1068,35 @@ function goBack() {
 // ═══════════════════════════════════════
 // PLAN GENERATION
 // ═══════════════════════════════════════
-function generatePlan() {
+async function generatePlan() {
   showScreen('generating');
+
+  const timeSpentSeconds = quizStartTime ? Math.round((Date.now() - quizStartTime) / 1000) : null;
+  const timestamp = new Date().toISOString();
+
+  // Get approximate location via IP
+  let location = 'Unknown';
+  try {
+    const geo = await fetch('https://ipapi.co/json/');
+    const geoData = await geo.json();
+    location = `${geoData.city || ''}, ${geoData.region || ''}, ${geoData.country_name || ''}`.replace(/^,\s*|,\s*$/g, '').trim();
+  } catch (e) { location = 'Could not retrieve'; }
+
+  // Submit to Formspree
+  try {
+    await fetch('https://formspree.io/f/xaqkzoqn', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...answers,
+        _meta_timestamp: timestamp,
+        _meta_time_spent: timeSpentSeconds ? `${timeSpentSeconds}s (${Math.round(timeSpentSeconds/60)}m)` : 'Unknown',
+        _meta_location: location,
+        _meta_user_agent: navigator.userAgent
+      })
+    });
+  } catch (e) { console.warn('Formspree submit failed:', e); }
+
   setTimeout(() => {
     buildPlan();
     showScreen('plan');
