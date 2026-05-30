@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2-Year Life Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0f0e0c;
+  --paper: #f5f0e8;
+  --cream: #ede8dc;
+  --accent: #c4401a;
+  --gold: #b8962e;
+  --muted: #7a7468;
+  --light: #e2ddd4;
+  --green: #2d6a4f;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+/* ── LANDING ── */
+#screen-landing {
+  background: var(--ink);
+  color: var(--paper);
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+#screen-landing::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 560px; height: 560px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,240,232,0.07);
+  pointer-events: none;
+}
+#screen-landing::after {
+  content: '';
+  position: absolute;
+  bottom: -180px; left: -80px;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,240,232,0.04);
+  pointer-events: none;
+}
+.landing-inner { max-width: 680px; position: relative; z-index: 1; }
+.land-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards 0.1s;
+}
+.land-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 8vw, 88px);
+  line-height: 1.0;
+  font-weight: 700;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.25s;
+}
+.land-title em { font-style: italic; color: var(--gold); }
+.land-desc {
+  margin-top: 28px;
+  font-size: 16px;
+  color: rgba(245,240,232,0.6);
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.4s;
+}
+.land-features {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.55s;
+}
+.land-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(245,240,232,0.7);
+}
+.land-feature::before {
+  content: '→';
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+}
+.land-cta {
+  margin-top: 52px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.7s;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  padding: 16px 40px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  border-radius: 2px;
+}
+.btn-primary:hover { background: #a8351a; transform: translateY(-1px); }
+.land-time {
+  margin-top: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(245,240,232,0.3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── QUIZ ── */
+#screen-quiz {
+  background: var(--paper);
+  justify-content: flex-start;
+}
+.quiz-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.quiz-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+}
+.quiz-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.quiz-progress-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.5);
+}
+.quiz-progress-bar {
+  width: 120px;
+  height: 2px;
+  background: rgba(245,240,232,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.quiz-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 24px;
+}
+.quiz-step { display: none; width: 100%; max-width: 640px; }
+.quiz-step.active { display: block; animation: fadeUp 0.4s ease; }
+
+.step-category {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.step-q {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4vw, 32px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.step-hint {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--cream);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  border-radius: 2px;
+  text-align: left;
+}
+.opt:hover { background: var(--light); }
+.opt.selected { border-color: var(--accent); background: rgba(196,64,26,0.06); }
+.opt-key {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.opt.selected .opt-key { color: var(--accent); }
+.opt-label { font-size: 15px; font-weight: 500; }
+.opt-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.quiz-text-input {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--cream);
+  border: 2px solid var(--light);
+  border-radius: 2px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s;
+  margin-bottom: 36px;
+  resize: vertical;
+}
+.quiz-text-input:focus { border-color: var(--accent); }
+
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-back {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--light);
+  padding: 12px 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.btn-back:hover { color: var(--ink); border-color: var(--ink); }
+.btn-next {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 14px 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s, opacity 0.15s;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.btn-next.ready { opacity: 1; pointer-events: all; }
+.btn-next.ready:hover { background: var(--accent); }
+
+/* ── GENERATING ── */
+#screen-generating {
+  background: var(--ink);
+  color: var(--paper);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+}
+.gen-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-style: italic;
+}
+.gen-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.4);
+}
+.gen-dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.gen-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 1.2s ease infinite;
+}
+.gen-dot:nth-child(2) { animation-delay: 0.2s; }
+.gen-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+/* ── PLAN OUTPUT ── */
+#screen-plan { background: var(--paper); }
+
+.plan-topbar {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.plan-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+}
+.topbar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-ghost {
+  background: transparent;
+  color: rgba(245,240,232,0.7);
+  border: 1px solid rgba(245,240,232,0.2);
+  padding: 9px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: color 0.15s, border-color 0.15s;
+}
+.btn-ghost:hover { color: var(--paper); border-color: rgba(245,240,232,0.5); }
+.btn-restart {
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  padding: 9px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.15s;
+}
+.btn-restart:hover { background: #a8351a; }
+
+/* plan content */
+.plan-hero {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 80px 60px 70px;
+  position: relative;
+  overflow: hidden;
+}
+.plan-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; right: -100px;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,240,232,0.05);
+  pointer-events: none;
+}
+.plan-hero-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.plan-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 700;
+  line-height: 1.05;
+}
+.plan-name em { font-style: italic; color: var(--gold); }
+.plan-tagline {
+  margin-top: 20px;
+  font-size: 16px;
+  color: rgba(245,240,232,0.55);
+  max-width: 520px;
+}
+.plan-meta-row {
+  margin-top: 44px;
+  display: flex;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+.plan-meta-item {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.4);
+}
+.plan-meta-item span {
+  display: block;
+  font-size: 13px;
+  color: var(--paper);
+  margin-top: 4px;
+}
+
+.plan-section {
+  padding: 64px 60px;
+  border-bottom: 1px solid var(--light);
+}
+.ps-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.ps-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+.ps-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+}
+.ps-title em { font-style: italic; color: var(--gold); }
+
+/* tension block */
+.tension-block {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 44px 48px;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+}
+.tension-block::before {
+  content: '"';
+  position: absolute;
+  top: -30px; left: 28px;
+  font-family: 'Playfair Display', serif;
+  font-size: 180px;
+  color: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+.tension-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(17px, 2.5vw, 24px);
+  font-style: italic;
+  line-height: 1.5;
+  max-width: 620px;
+}
+.tension-note {
+  margin-top: 16px;
+  font-size: 14px;
+  color: rgba(245,240,232,0.5);
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* pillars */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2px;
+  background: var(--light);
+}
+.pillar-card {
+  background: var(--paper);
+  padding: 36px 28px;
+}
+.pillar-icon { font-size: 26px; margin-bottom: 14px; display: block; }
+.pillar-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.pillar-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* timeline */
+.timeline { position: relative; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 14px; top: 0; bottom: 0;
+  width: 1px;
+  background: var(--light);
+}
+.tl-phase { padding-left: 52px; padding-bottom: 52px; position: relative; }
+.tl-phase:last-child { padding-bottom: 0; }
+.tl-dot {
+  position: absolute;
+  left: 7px; top: 6px;
+  width: 15px; height: 15px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.tl-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.tl-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.actions-list { display: flex; flex-direction: column; gap: 10px; }
+.action-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 18px;
+  background: var(--cream);
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s;
+}
+.action-item:hover { border-left-color: var(--accent); }
+.atag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.atag-career { background: rgba(196,64,26,0.12); color: var(--accent); }
+.atag-health { background: rgba(184,150,46,0.14); color: var(--gold); }
+.atag-life { background: rgba(122,116,104,0.14); color: var(--muted); }
+.atag-mindset { background: rgba(45,106,79,0.14); color: var(--green); }
+.action-body { font-size: 14px; line-height: 1.6; }
+.action-body strong { display: block; font-weight: 500; font-size: 14px; margin-bottom: 2px; }
+
+/* weekly */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.day-col { text-align: center; }
+.day-name-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.day-tasks { display: flex; flex-direction: column; gap: 4px; }
+.dtask {
+  font-size: 10px;
+  padding: 5px 5px;
+  line-height: 1.3;
+  text-align: left;
+  border-radius: 1px;
+}
+.dtask-career { background: rgba(196,64,26,0.09); color: var(--accent); }
+.dtask-health { background: rgba(184,150,46,0.11); color: #8a6e1a; }
+.dtask-life { background: rgba(122,116,104,0.1); color: var(--muted); }
+.dtask-rest { background: var(--light); color: var(--muted); }
+
+/* check-ins */
+.checkins-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2px;
+  background: var(--light);
+}
+.checkin-card {
+  background: var(--cream);
+  padding: 24px 20px;
+}
+.checkin-area {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.checkin-q {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* mantra */
+.mantra-block {
+  background: var(--accent);
+  color: var(--paper);
+  padding: 80px 60px;
+  text-align: center;
+}
+.mantra-text {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4vw, 44px);
+  font-style: italic;
+  line-height: 1.3;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.mantra-sub {
+  margin-top: 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+/* footer */
+.plan-footer {
+  background: var(--ink);
+  color: rgba(245,240,232,0.35);
+  padding: 32px 60px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── PRINT ── */
+@media print {
+  .plan-topbar, #screen-landing, #screen-quiz, #screen-generating { display: none !important; }
+  #screen-plan { display: flex !important; }
+  .plan-section { break-inside: avoid; }
+  .week-grid { grid-template-columns: repeat(7,1fr); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .plan-hero, .plan-section { padding: 48px 24px; }
+  .quiz-header { padding: 16px 20px; }
+  #screen-landing { padding: 60px 28px; }
+  .mantra-block { padding: 60px 28px; }
+  .plan-footer { padding: 24px; }
+  .week-grid { grid-template-columns: repeat(4,1fr); }
+  .tension-block { padding: 32px 24px; }
+  .plan-topbar { padding: 16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════ LANDING ════════════ -->
+<div id="screen-landing" class="screen active">
+  <div class="landing-inner">
+    <div class="land-label">Personal Growth Tool · Free · No Signup</div>
+    <h1 class="land-title">Your 2-Year<br><em>Life Blueprint</em></h1>
+    <p class="land-desc">Answer 12 honest questions. Get a personalised, actionable framework for your career and personal growth — built around who you actually are, not who you think you should be.</p>
+    <div class="land-features">
+      <div class="land-feature">A phased 24-month roadmap with specific actions</div>
+      <div class="land-feature">Weekly rhythm tailored to your life stage</div>
+      <div class="land-feature">Quarterly check-in questions to keep you on track</div>
+      <div class="land-feature">Printable &amp; shareable — no account needed</div>
+    </div>
+    <div class="land-cta">
+      <button class="btn-primary" onclick="startQuiz()">Build My Blueprint</button>
+      <div class="land-time">Takes about 3 minutes</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ QUIZ ════════════ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-logo">Blueprint</div>
+    <div class="quiz-progress-wrap">
+      <div class="quiz-progress-label">Step <span id="step-counter">1</span> of 12</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-fill" style="width:8%"></div></div>
+    </div>
+  </div>
+  <div class="quiz-body" id="quiz-body">
+    <!-- Steps injected by JS -->
+  </div>
+</div>
+
+<!-- ════════════ GENERATING ════════════ -->
+<div id="screen-generating" class="screen">
+  <div class="gen-dots"><div class="gen-dot"></div><div class="gen-dot"></div><div class="gen-dot"></div></div>
+  <div class="gen-title">Building your blueprint…</div>
+  <div class="gen-sub">Personalising your 2-year plan</div>
+</div>
+
+<!-- ════════════ PLAN ════════════ -->
+<div id="screen-plan" class="screen">
+
+  <div class="plan-topbar">
+    <div class="plan-logo">Blueprint</div>
+    <div class="topbar-actions">
+      <button class="btn-ghost" onclick="window.print()">⬇ Print / Save PDF</button>
+      <button class="btn-restart" onclick="restart()">Start Over</button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="plan-hero">
+    <div class="plan-hero-label">Personal Framework · 2026–2028</div>
+    <div class="plan-name" id="plan-name">Your <em>Blueprint</em></div>
+    <div class="plan-tagline" id="plan-tagline"></div>
+    <div class="plan-meta-row" id="plan-meta-row"></div>
+  </div>
+
+  <!-- 01 Core Tension -->
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">01</span><h2 class="ps-title">Your Core <em>Tension</em></h2></div>
+    <div class="tension-block">
+      <div class="tension-quote" id="tension-quote"></div>
+      <div class="tension-note" id="tension-note"></div>
+    </div>
+  </div>
+
+  <!-- 02 Pillars -->
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">02</span><h2 class="ps-title">Your Three <em>Pillars</em></h2></div>
+    <div class="pillars-grid" id="pillars-grid"></div>
+  </div>
+
+  <!-- 03 Roadmap -->
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">03</span><h2 class="ps-title">The 24-Month <em>Roadmap</em></h2></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+
+  <!-- 04 Weekly Rhythm -->
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">04</span><h2 class="ps-title">Your Weekly <em>Rhythm</em></h2></div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;">A sustainable weekly structure honouring all three pillars.</p>
+    <div class="week-grid" id="week-grid"></div>
+  </div>
+
+  <!-- 05 Check-ins -->
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">05</span><h2 class="ps-title">Quarterly <em>Check-In</em></h2></div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:8px;">Ask yourself these every 3 months. Answer honestly — not aspirationally.</p>
+    <div class="checkins-grid" id="checkins-grid"></div>
+  </div>
+
+  <!-- Mantra -->
+  <div class="mantra-block">
+    <div class="mantra-text" id="mantra-text"></div>
+    <div class="mantra-sub">Your 2-Year Mantra · 2026–2028</div>
+  </div>
+
+  <div class="plan-footer">Built with the 2-Year Blueprint Tool · Free to share &amp; remix</div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// QUIZ STEPS DATA
+// ═══════════════════════════════════════
+const STEPS = [
+  {
+    id: 'life_stage',
+    category: 'About You',
+    q: 'Which best describes your current life stage?',
+    hint: 'Pick the one that feels most true right now.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Student / Early in life', desc: 'Still exploring, figuring out the path' },
+      { key: 'B', label: 'Building my career', desc: 'Actively growing, establishing myself' },
+      { key: 'C', label: 'Established & settled', desc: 'Stable platform, looking to deepen or pivot' },
+      { key: 'D', label: 'Retired / Slowing down', desc: 'New chapter, different priorities' }
+    ]
+  },
+  {
+    id: 'driver',
+    category: 'Motivation',
+    q: 'What drives you most right now?',
+    hint: 'Your honest answer, not your ideal answer.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Financial security', desc: 'Stability and freedom from money stress' },
+      { key: 'B', label: 'Making an impact', desc: 'Doing work that matters beyond myself' },
+      { key: 'C', label: 'Personal growth', desc: 'Becoming the best version of myself' },
+      { key: 'D', label: 'Recognition & status', desc: 'Being seen and respected for my work' }
+    ]
+  },
+  {
+    id: 'social',
+    category: 'Energy & People',
+    q: 'How do you feel most like yourself?',
+    hint: 'This shapes your people strategy.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Alone — I recharge in solitude', desc: 'Deep introvert energy' },
+      { key: 'B', label: 'With a small, close circle', desc: 'Quality over quantity' },
+      { key: 'C', label: 'Around lots of people', desc: 'Energy comes from others' },
+      { key: 'D', label: 'Depends on my mood', desc: 'Contextual and fluid' }
+    ]
+  },
+  {
+    id: 'decision',
+    category: 'Mindset',
+    q: 'When making a big decision, what do you rely on most?',
+    hint: 'Understanding this reveals your blind spots.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Logic & facts', desc: 'Data, research, rational analysis' },
+      { key: 'B', label: 'Gut feeling & intuition', desc: 'Inner knowing, pattern recognition' },
+      { key: 'C', label: 'Other people\'s opinions', desc: 'Trusted voices and community wisdom' },
+      { key: 'D', label: 'A mix of all three', desc: 'Holistic and balanced approach' }
+    ]
+  },
+  {
+    id: 'field',
+    category: 'Career',
+    q: 'What field or industry are you in (or want to be in)?',
+    hint: 'This personalises your career actions.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Tech / Digital', desc: 'Software, product, data, design, AI' },
+      { key: 'B', label: 'Finance / Business', desc: 'Banking, consulting, entrepreneurship' },
+      { key: 'C', label: 'Healthcare / Sciences', desc: 'Medicine, research, wellness' },
+      { key: 'D', label: 'Creative / Other', desc: 'Arts, media, education, public sector' }
+    ]
+  },
+  {
+    id: 'career_obstacle',
+    category: 'Career',
+    q: 'What is your biggest career obstacle right now?',
+    hint: 'Be honest — this is what the roadmap will target.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Not earning enough yet', desc: 'Income doesn\'t reflect my effort or value' },
+      { key: 'B', label: 'Unclear next step', desc: 'I don\'t know what the path forward looks like' },
+      { key: 'C', label: 'Lack of skills or credentials', desc: 'There are gaps I know I need to close' },
+      { key: 'D', label: 'Limited network or visibility', desc: 'Right people don\'t know I exist yet' }
+    ]
+  },
+  {
+    id: 'success',
+    category: 'Life Vision',
+    q: 'What does a truly successful life look like to you?',
+    hint: 'Your honest north star — not society\'s.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Family & relationships', desc: 'Deep, lasting human connection' },
+      { key: 'B', label: 'Career & achievement', desc: 'Excellence and accomplishment' },
+      { key: 'C', label: 'Health & wellbeing', desc: 'A body and mind that thrive' },
+      { key: 'D', label: 'Freedom & experiences', desc: 'Living on my own terms' }
+    ]
+  },
+  {
+    id: 'personal_focus',
+    category: 'Personal Life',
+    q: 'Which area of your personal life needs the most attention?',
+    hint: 'The one you\'ve been quietly ignoring.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Health & fitness', desc: 'Physical energy, movement, body' },
+      { key: 'B', label: 'Key relationships', desc: 'Family, partner, close friends' },
+      { key: 'C', label: 'Mental clarity & stress', desc: 'Mind, calm, focus, emotional health' },
+      { key: 'D', label: 'Financial habits', desc: 'Savings, spending, financial literacy' }
+    ]
+  },
+  {
+    id: 'fear',
+    category: 'Honest Reflection',
+    q: 'What is your biggest fear in life?',
+    hint: 'The thing underneath the surface ambition.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Failure', desc: 'Not achieving what I set out to do' },
+      { key: 'B', label: 'What others think', desc: 'Being judged, misunderstood, or dismissed' },
+      { key: 'C', label: 'Losing the people I love', desc: 'Relationships fracturing or fading' },
+      { key: 'D', label: 'Not living up to my potential', desc: 'Knowing I could have done more' }
+    ]
+  },
+  {
+    id: 'conflict',
+    category: 'Self-Awareness',
+    q: 'How do you typically handle conflict?',
+    hint: 'How you handle conflict shapes every relationship.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Avoid it as long as possible', desc: 'Peace-keeper, tension-averse' },
+      { key: 'B', label: 'Face it head-on immediately', desc: 'Direct, sometimes blunt' },
+      { key: 'C', label: 'Think it through, then act', desc: 'Deliberate and measured' },
+      { key: 'D', label: 'Lean on others for support', desc: 'Collaborative, community-oriented' }
+    ]
+  },
+  {
+    id: 'end_vision',
+    category: 'Legacy',
+    q: 'When you look back at the end of your life, what would make you feel it was well lived?',
+    hint: 'Your single most honest answer.',
+    type: 'choice',
+    options: [
+      { key: 'A', label: 'Financial freedom', desc: 'Never having to worry about money' },
+      { key: 'B', label: 'Deeply loved & connected', desc: 'Rich relationships and belonging' },
+      { key: 'C', label: 'A lasting impact', desc: 'Having changed something for the better' },
+      { key: 'D', label: 'Lived fully, no regrets', desc: 'Presence, courage, and full engagement' }
+    ]
+  },
+  {
+    id: 'name',
+    category: 'Final Touch',
+    q: 'What should we call your blueprint?',
+    hint: 'Your name, a nickname, or just "My Blueprint" — it\'s yours.',
+    type: 'text',
+    placeholder: 'e.g. Alex\'s Blueprint, or just My Blueprint'
+  }
+];
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let answers = {};
+let currentStep = 0;
+
+// ═══════════════════════════════════════
+// SCREEN SWITCHING
+// ═══════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+}
+
+function startQuiz() {
+  renderStep(0);
+  showScreen('quiz');
+}
+
+function restart() {
+  answers = {};
+  currentStep = 0;
+  showScreen('landing');
+}
+
+// ═══════════════════════════════════════
+// QUIZ RENDERING
+// ═══════════════════════════════════════
+function renderStep(index) {
+  currentStep = index;
+  const step = STEPS[index];
+  const body = document.getElementById('quiz-body');
+
+  // Update progress
+  document.getElementById('step-counter').textContent = index + 1;
+  document.getElementById('progress-fill').style.width = ((index + 1) / STEPS.length * 100) + '%';
+
+  // Build HTML
+  let html = `<div class="quiz-step active">
+    <div class="step-category">${step.category}</div>
+    <div class="step-q">${step.q}</div>
+    <div class="step-hint">${step.hint}</div>`;
+
+  if (step.type === 'choice') {
+    html += `<div class="options">`;
+    step.options.forEach(opt => {
+      const sel = answers[step.id] === opt.key ? 'selected' : '';
+      html += `<div class="opt ${sel}" onclick="selectOption('${step.id}','${opt.key}',this)">
+        <span class="opt-key">${opt.key}</span>
+        <div><div class="opt-label">${opt.label}</div><div class="opt-desc">${opt.desc}</div></div>
+      </div>`;
+    });
+    html += `</div>`;
+  } else {
+    const val = answers[step.id] || '';
+    html += `<input type="text" class="quiz-text-input" id="text-input" placeholder="${step.placeholder}" value="${val}" oninput="handleTextInput(this.value)" />`;
+  }
+
+  const isFirst = index === 0;
+  const isLast = index === STEPS.length - 1;
+  const hasAnswer = answers[step.id];
+  const nextReady = hasAnswer ? 'ready' : '';
+  const nextLabel = isLast ? 'Build My Blueprint →' : 'Next →';
+
+  html += `<div class="step-nav">
+    ${isFirst ? '<div></div>' : '<button class="btn-back" onclick="goBack()">← Back</button>'}
+    <button class="btn-next ${nextReady}" id="btn-next" onclick="goNext()">${nextLabel}</button>
+  </div></div>`;
+
+  body.innerHTML = html;
+}
+
+function selectOption(stepId, key, el) {
+  answers[stepId] = key;
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btn-next').classList.add('ready');
+}
+
+function handleTextInput(val) {
+  answers[STEPS[currentStep].id] = val.trim();
+  const btn = document.getElementById('btn-next');
+  if (val.trim().length > 0) btn.classList.add('ready');
+  else btn.classList.remove('ready');
+}
+
+function goNext() {
+  if (!answers[STEPS[currentStep].id]) return;
+  if (currentStep === STEPS.length - 1) {
+    generatePlan();
+  } else {
+    renderStep(currentStep + 1);
+  }
+}
+
+function goBack() {
+  if (currentStep > 0) renderStep(currentStep - 1);
+}
+
+// ═══════════════════════════════════════
+// PLAN GENERATION
+// ═══════════════════════════════════════
+function generatePlan() {
+  showScreen('generating');
+  setTimeout(() => {
+    buildPlan();
+    showScreen('plan');
+    window.scrollTo(0, 0);
+  }, 1800);
+}
+
+// ─── LOOKUP HELPERS ───
+const FIELD_LABELS = { A: 'Tech / Digital', B: 'Finance / Business', C: 'Healthcare / Sciences', D: 'Creative / Other' };
+const STAGE_LABELS = { A: 'Student / Early Life', B: 'Building Career', C: 'Established', D: 'Retirement / New Chapter' };
+const DRIVER_LABELS = { A: 'Financial Security', B: 'Making an Impact', C: 'Personal Growth', D: 'Recognition' };
+const SUCCESS_LABELS = { A: 'Family & Relationships', B: 'Career & Achievement', C: 'Health & Wellbeing', D: 'Freedom & Experiences' };
+const PERSONAL_LABELS = { A: 'Health & Fitness', B: 'Key Relationships', C: 'Mental Clarity', D: 'Financial Habits' };
+const OBSTACLE_LABELS = { A: 'Income Growth', B: 'Career Clarity', C: 'Skill Building', D: 'Visibility & Network' };
+
+function buildPlan() {
+  const a = answers;
+  const name = a.name || 'My Blueprint';
+  const field = FIELD_LABELS[a.field] || 'Your Field';
+  const stage = STAGE_LABELS[a.life_stage] || '';
+  const driver = DRIVER_LABELS[a.driver] || '';
+  const success = SUCCESS_LABELS[a.success] || '';
+  const personalFocus = PERSONAL_LABELS[a.personal_focus] || '';
+  const obstacle = OBSTACLE_LABELS[a.career_obstacle] || '';
+
+  // ── Name & tagline ──
+  document.getElementById('plan-name').innerHTML = `${name.split(' ')[0]}'s <em>Blueprint</em>`;
+  document.getElementById('plan-tagline').textContent = `A personalised 24-month framework built around your values, your fears, and the life you want.`;
+
+  // ── Meta ──
+  document.getElementById('plan-meta-row').innerHTML = `
+    <div class="plan-meta-item">Stage<span>${stage}</span></div>
+    <div class="plan-meta-item">Driven By<span>${driver}</span></div>
+    <div class="plan-meta-item">Career Focus<span>${obstacle}</span></div>
+    <div class="plan-meta-item">Personal Focus<span>${personalFocus}</span></div>
+    <div class="plan-meta-item">Success Means<span>${success}</span></div>
+  `;
+
+  // ── Tension ──
+  const tensions = {
+    A: { q: `"${driver} drives me today — but at the end, ${endVisionPhrase(a.end_vision)}."`, n: "These don't conflict — but they quietly diverge if left unmanaged. This framework keeps them aligned by treating your driver as the vehicle, not the destination." },
+    B: { q: `"I want to make an impact — but I haven't yet defined what impact means for me specifically."`, n: "Vague purpose feels inspiring but produces little momentum. Your roadmap converts the feeling into concrete actions." },
+    C: { q: `"I'm focused on growth — but growth without direction can feel like spinning wheels."`, n: "This framework gives your growth ambition a structure so every step compounds toward something real." },
+    D: { q: `"I want recognition — but recognition built on the wrong foundation leads to a hollow feeling of arrival."`, n: "The plan below ensures you're building something you'll be proud of, not just visible for." }
+  };
+  const t = tensions[a.driver] || tensions.A;
+  document.getElementById('tension-quote').textContent = t.q;
+  document.getElementById('tension-note').textContent = t.n;
+
+  // ── Pillars ──
+  const pillar1 = careerPillar(a.field, a.career_obstacle);
+  const pillar2 = personalPillar(a.personal_focus);
+  const pillar3 = peoplePillar(a.social, a.success);
+  document.getElementById('pillars-grid').innerHTML = [pillar1, pillar2, pillar3].map(p =>
+    `<div class="pillar-card"><span class="pillar-icon">${p.icon}</span><div class="pillar-name">${p.name}</div><div class="pillar-body">${p.body}</div></div>`
+  ).join('');
+
+  // ── Timeline ──
+  const phases = buildPhases(a);
+  document.getElementById('timeline').innerHTML = phases.map(ph => `
+    <div class="tl-phase">
+      <div class="tl-dot"></div>
+      <div class="tl-label">${ph.label}</div>
+      <div class="tl-title">${ph.title}</div>
+      <div class="actions-list">${ph.actions.map(ac =>
+        `<div class="action-item"><span class="atag atag-${ac.tag}">${ac.tag}</span><div class="action-body"><strong>${ac.title}</strong>${ac.body}</div></div>`
+      ).join('')}</div>
+    </div>
+  `).join('');
+
+  // ── Weekly rhythm ──
+  const week = buildWeek(a);
+  document.getElementById('week-grid').innerHTML = week.map(day => `
+    <div class="day-col">
+      <div class="day-name-label">${day.name}</div>
+      <div class="day-tasks">${day.tasks.map(t => `<div class="dtask dtask-${t.type}">${t.text}</div>`).join('')}</div>
+    </div>
+  `).join('');
+
+  // ── Check-ins ──
+  const checkins = buildCheckins(a);
+  document.getElementById('checkins-grid').innerHTML = checkins.map(c =>
+    `<div class="checkin-card"><div class="checkin-area">${c.area}</div><div class="checkin-q">${c.q}</div></div>`
+  ).join('');
+
+  // ── Mantra ──
+  document.getElementById('mantra-text').textContent = buildMantra(a);
+}
+
+// ─── HELPERS ───
+function endVisionPhrase(key) {
+  const map = {
+    A: 'I want financial freedom',
+    B: 'I want to be deeply loved and connected',
+    C: 'I want to have made a lasting impact',
+    D: 'I want to have lived fully and without regret'
+  };
+  return map[key] || 'I want to have lived without regret';
+}
+
+function careerPillar(field, obstacle) {
+  const icons = { A: '💻', B: '📈', C: '🔬', D: '🎨' };
+  const names = { A: 'Tech Career Path', B: 'Business Growth', C: 'Professional Impact', D: 'Creative Career' };
+  const bodies = {
+    A: { A: 'Turn financial ambition into a clear salary & role ladder in tech. Identify the gap between now and your next level.', B: 'Map your promotion path with specifics. No more "rough direction" — define the exact next title, skills, and proof points.', C: 'Close the skill gap that\'s holding you back. Pick one high-leverage capability and go deep on it.', D: 'Build visibility in your field. The right people need to know what you\'re capable of.' },
+    B: { A: 'Identify the revenue or compensation lever in your field and pull it deliberately.', B: 'Define your next role and reverse-engineer the path.', C: 'Credentials and skills are the currency — invest in the ones with the highest return.', D: 'Expand your professional network with intention, not volume.' },
+    C: { A: 'Follow the money to the right specialisation.', B: 'Clarify your next position within your organisation or beyond.', C: 'Pursue the qualification or experience that unlocks your next level.', D: 'Get known inside and outside your institution.' },
+    D: { A: 'Build financial sustainability in a field that often doesn\'t reward it directly.', B: 'Define what "next" looks like and commit to it.', C: 'Build the portfolio, credential, or body of work that opens doors.', D: 'Create strategic visibility in your niche.' }
+  };
+  const body = (bodies[field] && bodies[field][obstacle]) || 'Define your next career move with clarity and build toward it deliberately.';
+  return { icon: icons[field] || '🧭', name: names[field] || 'Career Direction', body };
+}
+
+function personalPillar(focus) {
+  const map = {
+    A: { icon: '🏃', name: 'Physical Foundation', body: 'Health is the platform everything else runs on. Build it as a non-negotiable, not a reward for finishing work.' },
+    B: { icon: '❤️', name: 'Relationship Architecture', body: 'The people closest to you are your home. Protect time with them the same way you protect your most important meetings.' },
+    C: { icon: '🧠', name: 'Mental Clarity', body: 'Stress and mental fog erode your best work and your best self. Build systems for calm, not just willpower.' },
+    D: { icon: '💰', name: 'Financial Foundations', body: 'Financial literacy is a skill, not a personality trait. Build the habits now that compound over the next 20 years.' }
+  };
+  return map[focus] || map.A;
+}
+
+function peoplePillar(social, success) {
+  if (success === 'A' || social === 'B') {
+    return { icon: '🤝', name: 'People Architecture', body: 'Your close circle is central to your definition of success. Audit it, invest in it, and protect it from the quiet erosion of a busy season.' };
+  }
+  if (social === 'C') {
+    return { icon: '🌐', name: 'Community & Connection', body: 'Your energy comes from people — use that deliberately. Build the community around your goals, not just around comfort.' };
+  }
+  return { icon: '🤝', name: 'Relationships & Legacy', body: 'Regardless of career success, the richness of your relationships will define how you feel about your life. Invest accordingly.' };
+}
+
+function buildPhases(a) {
+  const field = a.field;
+  const obstacle = a.career_obstacle;
+  const personal = a.personal_focus;
+  const driver = a.driver;
+  const fear = a.fear;
+
+  const careerActions1 = {
+    A: { title: 'Write your Career Position Document', body: ' — Define your current role, what "next level" looks like in your domain, and the 3 skills separating you from it. One page. Keep it visible.' },
+    B: { title: 'Have the promotion conversation', body: ' — Ask your manager directly: "What would I need to demonstrate over the next 6 months to move up?" Get specifics, not generalities.' },
+    C: { title: 'Identify your #1 skill gap', body: ' — Research what the next level in your field requires. Name the single highest-leverage skill you\'re missing and find the fastest path to it.' },
+    D: { title: 'Map your network gaps', body: ' — List 10 people in your field you should know but don\'t. Begin one genuine outreach per week — not transactional, but human.' }
+  };
+
+  const personalActions1 = {
+    A: { title: 'Pick one anchor health habit', body: ' — Not a full routine. One keystone (3x/week gym, daily walk, 7hrs sleep). Lock it in for 8 weeks before adding anything else.' },
+    B: { title: 'Schedule one protected ritual with your people', body: ' — Monthly dinner, weekly call. Put it in the calendar. Guard it from work bleed.' },
+    C: { title: 'Build a stress baseline', body: ' — Track your energy for 2 weeks. Identify your top 3 stress triggers and your 3 most effective relief valves. Build from data, not guesswork.' },
+    D: { title: 'Set up your financial foundation', body: ' — Open a dedicated savings account. Automate a fixed monthly transfer. Name a concrete 12-month savings goal.' }
+  };
+
+  const fearAction = {
+    A: { title: 'Define what failure actually means to you', body: ' — Write it out. Most "failure fears" are vague and enormous. Naming them makes them manageable.' },
+    B: { title: 'Identify whose opinion actually matters', body: ' — List the 3 people whose judgment of you genuinely deserves weight. Everyone else is noise.' },
+    C: { title: 'Schedule a relationship investment week', body: ' — Block a full week in the next 3 months dedicated to the people you fear losing. Show up before you need to.' },
+    D: { title: 'Write your potential statement', body: ' — One paragraph: what does your potential look like if realised? Make it concrete and specific. This becomes your compass.' }
+  };
+
+  return [
+    {
+      label: 'Months 1–3 · Foundation',
+      title: 'Get Clear, Get Moving',
+      actions: [
+        { tag: 'career', ...careerActions1[obstacle] },
+        { tag: 'life', title: 'Audit your current life honestly', body: ' — Rate each area (career, health, relationships, finances, mental health) out of 10. The gaps are your priorities.' },
+        { tag: 'mindset', ...fearAction[fear] },
+        { tag: personal === 'A' ? 'health' : personal === 'B' ? 'life' : personal === 'C' ? 'mindset' : 'life', ...personalActions1[personal] }
+      ]
+    },
+    {
+      label: 'Months 4–8 · Build',
+      title: 'Skill Up, Show Up',
+      actions: [
+        { tag: 'career', title: 'Dedicate 3–4 hrs/week to your skill gap', body: ' — Use the fastest path available: a focused online course, a side project, a mentor. Don\'t confuse learning with doing — apply as you go.' },
+        { tag: 'career', title: 'Create one piece of visible output', body: field === 'A' ? ' — Write an article, build a side project, or lead an internal initiative. In tech, visibility compounds.' : field === 'D' ? ' — Share a piece of work publicly. Creative careers thrive on curated visibility.' : ' — Contribute something visible beyond your job description. Present at a team meeting, write an internal memo, mentor someone.' },
+        { tag: 'career', title: 'Make one meaningful new connection per month', body: ' — Not networking events — real conversations with people 1–2 levels ahead of you in your field.' },
+        { tag: personal === 'A' ? 'health' : 'life', title: personal === 'A' ? 'Add a second health layer' : personal === 'B' ? 'Deepen your key relationships intentionally' : personal === 'C' ? 'Build a weekly mental reset ritual' : 'Learn one financial concept per month', body: personal === 'A' ? ' — Once your anchor habit is solid, layer in nutrition or sleep. Not perfection — one conscious upgrade.' : personal === 'B' ? ' — Move from reactive to proactive. Check in with your people before something breaks. Ask about their lives, not just yours.' : personal === 'C' ? ' — A Sunday reset, a 10-minute morning practice, a weekly journaling session. Consistency over intensity.' : ' — Compound interest, investing basics, tax efficiency. One concept, applied.' }
+      ]
+    },
+    {
+      label: 'Months 9–14 · Accelerate',
+      title: 'Take the Bold Move',
+      actions: [
+        { tag: 'career', title: 'Make your move — internally or externally', body: ' — You now have clarity, a closing skill gap, and growing visibility. Pursue the promotion, apply for the next role, or make the strategic lateral move. The security-seeking ends here. This is the bet on yourself.' },
+        { tag: 'career', title: 'Set a concrete financial milestone', body: driver === 'A' ? ' — "Financial security" without a number is just anxiety. Define what secure actually means: emergency fund target, salary figure, specific income goal. Make it measurable.' : ' — Even if finance isn\'t your primary driver, a concrete number creates freedom. What would feel like a foundation?' },
+        { tag: 'life', title: 'Do something that scares you personally', body: ' — Not career-related. A trip, a difficult conversation, a commitment. The "lived fully" life requires moments of deliberate personal courage.' },
+        { tag: personal === 'A' ? 'health' : 'mindset', title: personal === 'A' ? 'Do a full health review' : 'Run a mid-point life audit', body: personal === 'A' ? ' — Book a physical. Assess energy, sleep, fitness, and stress. Treat your health like a quarterly business review — not a crisis response.' : ' — Are the habits from phase 1 still holding? What\'s slipped? What\'s stronger than expected? Recalibrate without judgment.' }
+      ]
+    },
+    {
+      label: 'Months 15–24 · Compound',
+      title: 'Integrate & Sustain',
+      actions: [
+        { tag: 'career', title: 'Write your next 2-year plan', body: ' — You\'ve closed this cycle. A practical, forward-looking person always has a next horizon. Raise the ambition from where you started. This time it should feel less scary to write.' },
+        { tag: personal === 'A' ? 'health' : 'mindset', title: personal === 'A' ? 'Cement health as identity, not effort' : 'Lock in your life architecture', body: personal === 'A' ? ' — By month 24, health habits should feel like who you are, not what you\'re trying to do. That identity shift is the actual goal.' : ' — The routines, rituals, and relationships you\'ve built should feel like your life, not your project. This is integration.' },
+        { tag: 'life', title: 'Run a personal annual review', body: ' — Honestly: Am I closer to living fully? Are the people I love getting my best? What would the version of me who has no regrets do differently starting now?' },
+        { tag: 'mindset', title: 'Share what you\'ve learned', body: ' — Teach, mentor, write, or talk about what you\'ve discovered. The act of articulating your growth consolidates it — and gives it to someone who needs it.' }
+      ]
+    }
+  ];
+}
+
+function buildWeek(a) {
+  const p = a.personal_focus;
+  const healthText = p === 'A' ? 'Workout' : p === 'C' ? 'Mental reset' : 'Active movement';
+  const lifeText = p === 'B' ? 'Reach out to someone close' : p === 'D' ? 'Review finances' : 'Personal time';
+  return [
+    { name: 'Mon', tasks: [{ type: 'career', text: 'Deep skill work (1–2 hrs)' }, { type: 'health', text: healthText }] },
+    { name: 'Tue', tasks: [{ type: 'career', text: 'Visibility task' }, { type: 'health', text: 'Recovery' }] },
+    { name: 'Wed', tasks: [{ type: 'career', text: 'Deep skill work' }, { type: 'health', text: healthText }, { type: 'life', text: lifeText }] },
+    { name: 'Thu', tasks: [{ type: 'career', text: 'Network / 1:1' }, { type: 'health', text: 'Recovery' }] },
+    { name: 'Fri', tasks: [{ type: 'career', text: 'Weekly review (20 min)' }, { type: 'health', text: healthText }] },
+    { name: 'Sat', tasks: [{ type: 'life', text: 'People time — protected' }, { type: 'health', text: 'Outdoors / active' }] },
+    { name: 'Sun', tasks: [{ type: 'rest', text: 'Rest & recharge' }, { type: 'life', text: 'Plan the week ahead' }] }
+  ];
+}
+
+function buildCheckins(a) {
+  const base = [
+    { area: 'Career', q: 'Do I know exactly what my next career move is and what\'s required to get there?' },
+    { area: 'Career', q: 'Am I making career decisions from ambition — or from fear?' },
+    { area: 'Personal', q: a.personal_focus === 'A' ? 'Is my body getting what it needs — or absorbing what my career demands?' : a.personal_focus === 'B' ? 'Are the people I love getting my best energy, or just what\'s left?' : a.personal_focus === 'C' ? 'Is my mind clear and calm more often than not?' : 'Am I building financial habits I\'ll thank myself for in 10 years?' },
+    { area: 'Relationships', q: 'Are the people closest to me getting my full presence, or a distracted version of me?' },
+    { area: 'Purpose', q: 'If this year ended today, would I feel I lived it — or just survived it?' },
+    { area: 'Potential', q: 'Am I closing the gap between who I am and who I know I could be?' }
+  ];
+  return base;
+}
+
+function buildMantra(a) {
+  const mantras = {
+    A: '"Build security as the foundation — not the ceiling."',
+    B: '"Make impact with intention, not just effort."',
+    C: '"Grow toward something — not just away from something."',
+    D: '"Earn the recognition by becoming undeniable."'
+  };
+  return mantras[a.driver] || '"Live fully, act deliberately, leave nothing unsaid."';
+}
+</script>
+</body>
+</html>
