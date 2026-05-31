@@ -4,152 +4,146 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>2-Year Life Blueprint</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --ink: #0f0e0c;
-  --paper: #f5f0e8;
-  --cream: #ede8dc;
-  --accent: #c4401a;
-  --gold: #b8962e;
-  --muted: #7a7468;
-  --light: #e2ddd4;
-  --green: #2d6a4f;
+  --ink: #0f0e0c; --paper: #f5f0e8; --cream: #ede8dc;
+  --accent: #c4401a; --gold: #b8962e; --muted: #7a7468;
+  --light: #e2ddd4; --green: #2d6a4f;
 }
 html { scroll-behavior: smooth; }
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  line-height: 1.7;
-  min-height: 100vh;
-}
-
+body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.7; min-height: 100vh; }
 .screen { display: none; min-height: 100vh; }
 .screen.active { display: flex; flex-direction: column; }
-
-#screen-landing {
-  background: var(--ink);
-  color: var(--paper);
-  justify-content: center;
-  align-items: flex-start;
-  padding: 80px 60px;
-  position: relative;
-  overflow: hidden;
-}
-#screen-landing::before {
-  content: '';
-  position: absolute;
-  top: -120px; right: -120px;
-  width: 560px; height: 560px;
-  border-radius: 50%;
-  border: 1px solid rgba(245,240,232,0.07);
-  pointer-events: none;
-}
-#screen-landing::after {
-  content: '';
-  position: absolute;
-  bottom: -180px; left: -80px;
-  width: 420px; height: 420px;
-  border-radius: 50%;
-  border: 1px solid rgba(245,240,232,0.04);
-  pointer-events: none;
-}
+#screen-landing { background: var(--ink); color: var(--paper); justify-content: center; align-items: flex-start; padding: 80px 60px; position: relative; overflow: hidden; }
+#screen-landing::before { content: ''; position: absolute; top: -120px; right: -120px; width: 560px; height: 560px; border-radius: 50%; border: 1px solid rgba(245,240,232,0.07); pointer-events: none; }
 .landing-inner { max-width: 680px; position: relative; z-index: 1; }
-.land-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 28px;
-  opacity: 0;
-  animation: fadeUp 0.5s ease forwards 0.1s;
-}
-.land-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(44px, 8vw, 88px);
-  line-height: 1.0;
-  font-weight: 700;
-  opacity: 0;
-  animation: fadeUp 0.6s ease forwards 0.25s;
-}
+.land-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; opacity: 0; animation: fadeUp 0.5s ease forwards 0.1s; }
+.land-title { font-family: 'Playfair Display', serif; font-size: clamp(44px, 8vw, 88px); line-height: 1.0; font-weight: 700; opacity: 0; animation: fadeUp 0.6s ease forwards 0.25s; }
 .land-title em { font-style: italic; color: var(--gold); }
-.land-desc {
-  margin-top: 28px;
-  font-size: 16px;
-  color: rgba(245,240,232,0.6);
-  line-height: 1.7;
-  opacity: 0;
-  animation: fadeUp 0.6s ease forwards 0.4s;
-}
-.land-features {
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  opacity: 0;
-  animation: fadeUp 0.6s ease forwards 0.55s;
-}
-.land-feature {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: rgba(245,240,232,0.7);
-}
-.land-feature::before {
-  content: '→';
-  color: var(--accent);
-  font-family: 'DM Mono', monospace;
-}
-.land-cta {
-  margin-top: 52px;
-  opacity: 0;
-  animation: fadeUp 0.6s ease forwards 0.7s;
-}
-.btn-primary {
-  background: var(--accent);
-  color: var(--paper);
-  border: none;
-  padding: 16px 40px;
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
-  border-radius: 2px;
-}
+.land-desc { margin-top: 28px; font-size: 16px; color: rgba(245,240,232,0.6); line-height: 1.7; opacity: 0; animation: fadeUp 0.6s ease forwards 0.4s; }
+.land-features { margin-top: 40px; display: flex; flex-direction: column; gap: 10px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.55s; }
+.land-feature { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(245,240,232,0.7); }
+.land-feature::before { content: '→'; color: var(--accent); font-family: 'DM Mono', monospace; }
+.land-cta { margin-top: 52px; opacity: 0; animation: fadeUp 0.6s ease forwards 0.7s; }
+.btn-primary { background: var(--accent); color: var(--paper); border: none; padding: 16px 40px; font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.15s; border-radius: 2px; }
 .btn-primary:hover { background: #a8351a; transform: translateY(-1px); }
-.land-time {
-  margin-top: 16px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: rgba(245,240,232,0.3);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 640px) {
-  #screen-landing { padding: 60px 28px; }
-}
+.land-time { margin-top: 16px; font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(245,240,232,0.3); letter-spacing: 0.15em; text-transform: uppercase; }
+#screen-quiz { background: var(--paper); justify-content: flex-start; }
+.quiz-header { background: var(--ink); color: var(--paper); padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.quiz-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; }
+.quiz-progress-wrap { display: flex; align-items: center; gap: 16px; }
+.quiz-progress-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.5); }
+.quiz-progress-bar { width: 120px; height: 2px; background: rgba(245,240,232,0.15); border-radius: 2px; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: var(--accent); transition: width 0.4s ease; }
+.quiz-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; }
+.quiz-step { display: none; width: 100%; max-width: 640px; }
+.quiz-step.active { display: block; animation: fadeUp 0.4s ease; }
+.step-category { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.step-q { font-family: 'Playfair Display', serif; font-size: clamp(20px, 3.5vw, 28px); font-weight: 700; line-height: 1.25; margin-bottom: 8px; }
+.step-hint { font-size: 14px; color: var(--muted); margin-bottom: 32px; line-height: 1.5; }
+.options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+.opt { display: flex; align-items: flex-start; gap: 14px; padding: 16px 20px; background: var(--cream); border: 2px solid transparent; cursor: pointer; transition: border-color 0.15s, background 0.15s; border-radius: 2px; text-align: left; }
+.opt:hover { background: var(--light); }
+.opt.selected { border-color: var(--accent); background: rgba(196,64,26,0.06); }
+.opt-key { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); margin-top: 2px; flex-shrink: 0; }
+.opt.selected .opt-key { color: var(--accent); }
+.opt-label { font-size: 15px; font-weight: 500; }
+.opt-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.quiz-text-input { width: 100%; padding: 16px 20px; background: var(--cream); border: 2px solid var(--light); border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--ink); outline: none; transition: border-color 0.15s; margin-bottom: 36px; }
+.quiz-text-input:focus { border-color: var(--accent); }
+.step-nav { display: flex; justify-content: space-between; align-items: center; }
+.btn-back { background: transparent; color: var(--muted); border: 1px solid var(--light); padding: 12px 24px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: color 0.15s, border-color 0.15s; }
+.btn-back:hover { color: var(--ink); border-color: var(--ink); }
+.btn-next { background: var(--ink); color: var(--paper); border: none; padding: 14px 32px; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: background 0.15s, opacity 0.15s; opacity: 0.4; pointer-events: none; }
+.btn-next.ready { opacity: 1; pointer-events: all; }
+.btn-next.ready:hover { background: var(--accent); }
+#screen-generating { background: var(--ink); color: var(--paper); justify-content: center; align-items: center; text-align: center; gap: 24px; }
+.gen-title { font-family: 'Playfair Display', serif; font-size: 32px; font-style: italic; }
+.gen-sub { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.4); margin-top: 4px; }
+.gen-dots { display: flex; gap: 8px; justify-content: center; }
+.gen-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 1.2s ease infinite; }
+.gen-dot:nth-child(2) { animation-delay: 0.2s; }
+.gen-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1); } }
+#screen-plan { background: var(--paper); }
+.plan-topbar { background: var(--ink); color: var(--paper); padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 12px; }
+.plan-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; }
+.topbar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.btn-ghost { background: transparent; color: rgba(245,240,232,0.7); border: 1px solid rgba(245,240,232,0.2); padding: 9px 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: color 0.15s, border-color 0.15s; }
+.btn-ghost:hover { color: var(--paper); border-color: rgba(245,240,232,0.5); }
+.btn-restart { background: var(--accent); color: var(--paper); border: none; padding: 9px 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border-radius: 2px; }
+.btn-restart:hover { background: #a8351a; }
+.plan-hero { background: var(--ink); color: var(--paper); padding: 80px 60px 70px; position: relative; overflow: hidden; }
+.plan-hero-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+.plan-name { font-family: 'Playfair Display', serif; font-size: clamp(36px, 6vw, 72px); font-weight: 700; line-height: 1.05; }
+.plan-name em { font-style: italic; color: var(--gold); }
+.plan-tagline { margin-top: 20px; font-size: 16px; color: rgba(245,240,232,0.55); max-width: 520px; }
+.plan-meta-row { margin-top: 44px; display: flex; gap: 36px; flex-wrap: wrap; }
+.plan-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,240,232,0.4); }
+.plan-meta-item span { display: block; font-size: 13px; color: var(--paper); margin-top: 4px; }
+.plan-section { padding: 64px 60px; border-bottom: 1px solid var(--light); }
+.ps-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 36px; }
+.ps-num { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.15em; }
+.ps-title { font-family: 'Playfair Display', serif; font-size: clamp(24px, 3.5vw, 36px); font-weight: 700; }
+.ps-title em { font-style: italic; color: var(--gold); }
+.tension-block { background: var(--ink); color: var(--paper); padding: 44px 48px; border-radius: 2px; position: relative; overflow: hidden; }
+.tension-quote { font-family: 'Playfair Display', serif; font-size: clamp(17px, 2.5vw, 22px); font-style: italic; line-height: 1.5; max-width: 620px; }
+.tension-note { margin-top: 16px; font-size: 14px; color: rgba(245,240,232,0.5); max-width: 560px; line-height: 1.6; }
+.pillars-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2px; background: var(--light); }
+.pillar-card { background: var(--paper); padding: 36px 28px; }
+.pillar-icon { font-size: 26px; margin-bottom: 14px; display: block; }
+.pillar-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.pillar-body { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.timeline { position: relative; }
+.timeline::before { content: ''; position: absolute; left: 14px; top: 0; bottom: 0; width: 1px; background: var(--light); }
+.tl-phase { padding-left: 52px; padding-bottom: 52px; position: relative; }
+.tl-phase:last-child { padding-bottom: 0; }
+.tl-dot { position: absolute; left: 7px; top: 6px; width: 15px; height: 15px; border-radius: 50%; background: var(--accent); border: 2px solid var(--paper); box-shadow: 0 0 0 1px var(--accent); }
+.tl-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.tl-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; margin-bottom: 18px; }
+.actions-list { display: flex; flex-direction: column; gap: 10px; }
+.action-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 18px; background: var(--cream); border-left: 3px solid transparent; transition: border-color 0.2s; }
+.action-item:hover { border-left-color: var(--accent); }
+.atag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 7px; border-radius: 2px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+.atag-career { background: rgba(196,64,26,0.12); color: var(--accent); }
+.atag-health { background: rgba(184,150,46,0.14); color: var(--gold); }
+.atag-life { background: rgba(122,116,104,0.14); color: var(--muted); }
+.atag-mindset { background: rgba(45,106,79,0.14); color: var(--green); }
+.action-body { font-size: 14px; line-height: 1.6; }
+.action-body strong { display: block; font-weight: 500; font-size: 14px; margin-bottom: 2px; }
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.day-col { text-align: center; }
+.day-name-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.day-tasks { display: flex; flex-direction: column; gap: 4px; }
+.dtask { font-size: 10px; padding: 5px; line-height: 1.3; text-align: left; border-radius: 1px; }
+.dtask-career { background: rgba(196,64,26,0.09); color: var(--accent); }
+.dtask-health { background: rgba(184,150,46,0.11); color: #8a6e1a; }
+.dtask-life { background: rgba(122,116,104,0.1); color: var(--muted); }
+.dtask-rest { background: var(--light); color: var(--muted); }
+.checkins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2px; background: var(--light); }
+.checkin-card { background: var(--cream); padding: 24px 20px; }
+.checkin-area { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.checkin-q { font-family: 'Playfair Display', serif; font-size: 14px; font-style: italic; line-height: 1.5; }
+.mantra-block { background: var(--accent); color: var(--paper); padding: 80px 60px; text-align: center; }
+.mantra-text { font-family: 'Playfair Display', serif; font-size: clamp(22px, 4vw, 44px); font-style: italic; line-height: 1.3; max-width: 700px; margin: 0 auto; }
+.mantra-sub { margin-top: 18px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.65; }
+.plan-footer { background: var(--ink); color: rgba(245,240,232,0.35); padding: 32px 60px; text-align: center; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@media print { .plan-topbar, #screen-landing, #screen-quiz, #screen-generating { display: none !important; } #screen-plan { display: flex !important; } }
+@media (max-width: 640px) { .plan-hero, .plan-section { padding: 48px 24px; } .quiz-header { padding: 16px 20px; } #screen-landing { padding: 60px 28px; } .mantra-block { padding: 60px 28px; } .plan-footer { padding: 24px; } .week-grid { grid-template-columns: repeat(4,1fr); } .plan-topbar { padding: 16px 20px; } }
 </style>
 </head>
 <body>
 
+<!-- LANDING -->
 <div id="screen-landing" class="screen active">
   <div class="landing-inner">
-    <div class="land-label">2-Year Blueprint Tool · 20 Questions</div>
+    <div class="land-label">Self-Discovery Tool · Free · No Signup</div>
     <h1 class="land-title">Know Yourself.<br><em>Build Your Life.</em></h1>
-    <p class="land-desc">20 thought-provoking questions about who you really are — your values, fears, contradictions, and desires. The result is a personalised 2-year blueprint built around who you are, not who you think you should be.</p>
+    <p class="land-desc">20 thought-provoking questions about who you really are — your values, fears, contradictions, and desires. The result is a personalised 2-year blueprint built around your honest answers, not your ideal ones.</p>
     <div class="land-features">
       <div class="land-feature">Deep self-awareness questions — personally and professionally</div>
       <div class="land-feature">A phased 24-month roadmap with specific actions</div>
@@ -157,11 +151,570 @@ body {
       <div class="land-feature">Printable and shareable — no account needed</div>
     </div>
     <div class="land-cta">
-      <button class="btn-primary" onclick="window.location.href='./full-version/'">Begin My Blueprint</button>
-      <div class="land-time">Takes about 5 minutes</div>
+      <button class="btn-primary" onclick="startQuiz()">Begin My Blueprint</button>
+      <div class="land-time">Takes about 5 minutes · Be honest with yourself</div>
     </div>
   </div>
 </div>
 
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-logo">Blueprint</div>
+    <div class="quiz-progress-wrap">
+      <div class="quiz-progress-label">Step <span id="step-counter">1</span> of 20</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-fill" style="width:5%"></div></div>
+    </div>
+  </div>
+  <div class="quiz-body" id="quiz-body"></div>
+</div>
+
+<!-- GENERATING -->
+<div id="screen-generating" class="screen">
+  <div class="gen-dots"><div class="gen-dot"></div><div class="gen-dot"></div><div class="gen-dot"></div></div>
+  <div class="gen-title">Building your blueprint...</div>
+  <div class="gen-sub" id="gen-sub-text">Weaving your answers into a life framework</div>
+</div>
+
+<!-- PLAN -->
+<div id="screen-plan" class="screen">
+  <div class="plan-topbar">
+    <div class="plan-logo">Blueprint</div>
+    <div class="topbar-actions">
+      <button class="btn-ghost" onclick="downloadPDF()">Download PDF</button>
+      <button class="btn-restart" onclick="restart()">Start Over</button>
+    </div>
+  </div>
+  <div class="plan-hero">
+    <div class="plan-hero-label">Personal Framework 2026-2028</div>
+    <div class="plan-name" id="plan-name">Your <em>Blueprint</em></div>
+    <div class="plan-tagline" id="plan-tagline"></div>
+    <div class="plan-meta-row" id="plan-meta-row"></div>
+  </div>
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">01</span><h2 class="ps-title">Your Core <em>Tension</em></h2></div>
+    <div class="tension-block">
+      <div class="tension-quote" id="tension-quote"></div>
+      <div class="tension-note" id="tension-note"></div>
+    </div>
+  </div>
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">02</span><h2 class="ps-title">Your Three <em>Pillars</em></h2></div>
+    <div class="pillars-grid" id="pillars-grid"></div>
+  </div>
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">03</span><h2 class="ps-title">The 24-Month <em>Roadmap</em></h2></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">04</span><h2 class="ps-title">Your Weekly <em>Rhythm</em></h2></div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;">A sustainable weekly structure honouring all three pillars.</p>
+    <div class="week-grid" id="week-grid"></div>
+  </div>
+  <div class="plan-section">
+    <div class="ps-header"><span class="ps-num">05</span><h2 class="ps-title">Quarterly <em>Check-In</em></h2></div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;">Ask yourself these every 3 months. Answer honestly, not aspirationally.</p>
+    <div class="checkins-grid" id="checkins-grid"></div>
+  </div>
+  <div class="mantra-block">
+    <div class="mantra-text" id="mantra-text"></div>
+    <div class="mantra-sub">Your 2-Year Mantra 2026-2028</div>
+  </div>
+  <div class="plan-footer">Built with the 2-Year Blueprint Tool · Free to share and remix</div>
+</div>
+
+<script>
+var STEPS = [
+  { id:"identity", category:"Who You Are", q:"When you strip away your job title, relationships, and achievements — who are you?", hint:"This is the hardest question first. Sit with it.", type:"choice", options:[
+    { key:"A", label:"A builder", desc:"I am most alive when creating, making, or growing something" },
+    { key:"B", label:"A connector", desc:"I am most alive through people, belonging, and relationships" },
+    { key:"C", label:"A thinker", desc:"I am most alive when understanding, solving, or making sense of things" },
+    { key:"D", label:"An explorer", desc:"I am most alive when experiencing, discovering, or moving through the world" }
+  ]},
+  { id:"values_conflict", category:"Your Values", q:"Two of your deepest values are in conflict right now. Which pair describes your tension best?", hint:"Both matter to you. That is what makes it hard.", type:"choice", options:[
+    { key:"A", label:"Ambition vs Presence", desc:"I want to achieve more — but I miss what is already here" },
+    { key:"B", label:"Security vs Freedom", desc:"I crave stability — but I also want to break loose" },
+    { key:"C", label:"Authenticity vs Acceptance", desc:"I want to be fully myself — but I also want to belong" },
+    { key:"D", label:"Independence vs Intimacy", desc:"I need space — but I also deeply need to be known" }
+  ]},
+  { id:"self_lie", category:"Radical Honesty", q:"What is the story you tell yourself that might not be true?", hint:"The comfortable narrative. The one that keeps you from changing.", type:"choice", options:[
+    { key:"A", label:"I will do it when the time is right", desc:"Waiting for conditions that will never be perfect" },
+    { key:"B", label:"I am fine with how things are", desc:"Suppressing dissatisfaction to avoid the discomfort of change" },
+    { key:"C", label:"My situation is different from others", desc:"Using uniqueness as an excuse not to act" },
+    { key:"D", label:"I do not care what others think", desc:"Claiming indifference to mask how much external opinion shapes you" }
+  ]},
+  { id:"energy_drain", category:"Self-Awareness", q:"What consistently drains your energy — even when you pretend it does not?", hint:"Not an occasional bad day. A structural drain in your current life.", type:"choice", options:[
+    { key:"A", label:"Work that feels meaningless", desc:"Going through the motions without a sense of purpose" },
+    { key:"B", label:"Relationships that take more than they give", desc:"People or dynamics that leave you depleted" },
+    { key:"C", label:"Not living up to my own standards", desc:"The gap between who I am and who I know I could be" },
+    { key:"D", label:"Noise, distraction, and overstimulation", desc:"A world that never quiets down enough for me to think" }
+  ]},
+  { id:"life_stage", category:"Where You Are", q:"Which chapter of life are you in right now?", hint:"Not where you want to be — where you actually are.", type:"choice", options:[
+    { key:"A", label:"Finding my footing", desc:"Figuring out who I am and where I belong" },
+    { key:"B", label:"Building my foundations", desc:"Actively constructing career, relationships, financial base" },
+    { key:"C", label:"Questioning what I built", desc:"Achieved things — but wondering if they were the right things" },
+    { key:"D", label:"Reimagining what comes next", desc:"A transition, pivot, or entirely new chapter" }
+  ]},
+  { id:"fear_deep", category:"Fear and Shadow", q:"Underneath your surface-level fears, what are you most afraid of?", hint:"Go one layer deeper than your first answer.", type:"choice", options:[
+    { key:"A", label:"That I am fundamentally ordinary", desc:"That despite my effort, I will not leave a mark" },
+    { key:"B", label:"That I am unworthy of love", desc:"That if people truly knew me, they would leave" },
+    { key:"C", label:"That I will waste my life", desc:"That I will arrive at the end having played it too safe" },
+    { key:"D", label:"That I will lose control", desc:"That circumstances or others will take what matters most from me" }
+  ]},
+  { id:"relationship_pattern", category:"How You Relate", q:"Which pattern shows up most often in your closest relationships?", hint:"The one that follows you from relationship to relationship.", type:"choice", options:[
+    { key:"A", label:"I give more than I receive", desc:"And sometimes resent it — but keep giving anyway" },
+    { key:"B", label:"I pull away when things get too close", desc:"Intimacy feels good until it feels threatening" },
+    { key:"C", label:"I need validation to feel secure", desc:"Other people's approval matters more than I would like to admit" },
+    { key:"D", label:"I expect others to read my mind", desc:"My needs are real but I struggle to voice them" }
+  ]},
+  { id:"work_meaning", category:"Career and Purpose", q:"What would make your work feel truly meaningful — not just successful?", hint:"Success and meaning are different things. Which one are you actually chasing?", type:"choice", options:[
+    { key:"A", label:"Solving a problem that genuinely matters", desc:"The work has real-world impact beyond my bank account" },
+    { key:"B", label:"Mastery — being exceptionally good at something", desc:"The craft itself is the meaning" },
+    { key:"C", label:"Building something that outlasts me", desc:"A company, a body of work, a legacy" },
+    { key:"D", label:"Full expression of who I am", desc:"Work that is an extension of my identity, not a performance" }
+  ]},
+  { id:"field", category:"Career", q:"What field or domain are you in — or want to be in?", hint:"Your professional context shapes the specific actions in your plan.", type:"choice", options:[
+    { key:"A", label:"Tech / Digital / AI", desc:"Software, product, data, design, engineering" },
+    { key:"B", label:"Finance / Business / Entrepreneurship", desc:"Banking, consulting, startups, strategy" },
+    { key:"C", label:"Healthcare / Sciences / Research", desc:"Medicine, academia, biotech, wellness" },
+    { key:"D", label:"Creative / Social / Other", desc:"Arts, media, education, NGO, public sector" }
+  ]},
+  { id:"career_obstacle", category:"Career", q:"What is the real reason you have not reached the next level in your career yet?", hint:"Not the external reason. The honest internal one.", type:"choice", options:[
+    { key:"A", label:"I have been waiting to feel ready", desc:"Preparing endlessly instead of acting" },
+    { key:"B", label:"I have not asked for what I want clearly enough", desc:"Hoping to be noticed rather than advocating for myself" },
+    { key:"C", label:"I genuinely lack a specific skill or credential", desc:"There is a real gap I have not closed yet" },
+    { key:"D", label:"I am not sure what the next level looks like for me", desc:"The direction is fuzzy, not the effort" }
+  ]},
+  { id:"body_relationship", category:"Physical Self", q:"How would you honestly describe your relationship with your body right now?", hint:"Your physical state is data — not a moral judgment.", type:"choice", options:[
+    { key:"A", label:"Neglected — running on empty", desc:"Sleep, food, movement have all slipped" },
+    { key:"B", label:"Functional but not thriving", desc:"Not unwell, but not energised either" },
+    { key:"C", label:"Used as a stress coping mechanism", desc:"I eat, drink, or stay sedentary when overwhelmed" },
+    { key:"D", label:"Reasonably well — I want to go deeper", desc:"The basics are there, now I want to optimise" }
+  ]},
+  { id:"time_allocation", category:"How You Live", q:"If you looked at where your time actually went last month, what would disturb you most?", hint:"Your calendar is a values audit. What does yours reveal?", type:"choice", options:[
+    { key:"A", label:"How little time I spent on what matters most", desc:"The important things kept losing to the urgent ones" },
+    { key:"B", label:"How much time I lost to distraction", desc:"Scrolling, passive watching, numbing out" },
+    { key:"C", label:"How little time I spent with the people I love", desc:"Relationships starved by busyness" },
+    { key:"D", label:"How little time I spent just being — not doing", desc:"No stillness, no recovery, no rest" }
+  ]},
+  { id:"growth_edge", category:"Personal Growth", q:"What is the one quality you most need to develop to become the person you want to be?", hint:"The thing you admire in others and know you are still building.", type:"choice", options:[
+    { key:"A", label:"Courage — to act before I feel ready", desc:"Decisiveness, risk tolerance, bold action" },
+    { key:"B", label:"Discipline — to do what I said I would", desc:"Consistency, follow-through, self-trust" },
+    { key:"C", label:"Vulnerability — to be seen fully", desc:"Openness, emotional honesty, dropping the armour" },
+    { key:"D", label:"Patience — to trust the process", desc:"Accepting that some things take longer than I want" }
+  ]},
+  { id:"regret_source", category:"Looking Back", q:"Looking back at the last 3 years — what do you most regret?", hint:"Not to dwell — but because regret points directly at what you value.", type:"choice", options:[
+    { key:"A", label:"A risk I did not take", desc:"The version of the future I did not choose out of fear" },
+    { key:"B", label:"Time I did not give to the people I love", desc:"Presence I withheld while chasing things" },
+    { key:"C", label:"Not investing in myself sooner", desc:"Health, skills, or self-knowledge I delayed" },
+    { key:"D", label:"Living by someone else's definition of success", desc:"Following a script that was never mine" }
+  ]},
+  { id:"decision_style", category:"How You Think", q:"When you make a bad decision, what is usually the root cause?", hint:"Your honest pattern — not a one-off.", type:"choice", options:[
+    { key:"A", label:"I acted from emotion before thinking it through", desc:"Reactivity over reflection" },
+    { key:"B", label:"I overthought it until the moment passed", desc:"Analysis paralysis" },
+    { key:"C", label:"I let someone else's opinion override my instinct", desc:"Outsourcing my judgment" },
+    { key:"D", label:"I ignored early warning signs I did not want to see", desc:"Wishful thinking over honest assessment" }
+  ]},
+  { id:"success_redefine", category:"What You Want", q:"In 10 years, if you are genuinely happy — what is present in that life?", hint:"Paint it in feeling and substance, not titles or numbers.", type:"choice", options:[
+    { key:"A", label:"Deep, unconditional love and belonging", desc:"A home — in people, in a place, in myself" },
+    { key:"B", label:"Work I am proud of that changed something", desc:"A meaningful dent in something that mattered" },
+    { key:"C", label:"Freedom — to choose how I spend my time", desc:"No obligation that is not also a choice" },
+    { key:"D", label:"Wholeness — nothing important left unexpressed", desc:"I became who I always sensed I could be" }
+  ]},
+  { id:"contribution", category:"Legacy", q:"What do you want the people closest to you to say about how you made them feel?", hint:"Not your eulogy. The quiet truth they carry about you.", type:"choice", options:[
+    { key:"A", label:"They made me feel seen and understood", desc:"Deep presence and genuine attention" },
+    { key:"B", label:"They made me believe I could do more", desc:"Inspiring, challenging, elevating" },
+    { key:"C", label:"They made me feel safe and loved", desc:"Steady, warm, a harbour in difficulty" },
+    { key:"D", label:"They showed me what was possible", desc:"A living example of courage and full living" }
+  ]},
+  { id:"next_chapter", category:"The Future", q:"What needs to be true 2 years from now for you to feel you are on the right path?", hint:"One honest answer — not the aspirational one.", type:"choice", options:[
+    { key:"A", label:"I took a real risk and it is paying off", desc:"I bet on myself and it is working" },
+    { key:"B", label:"My daily life reflects what I actually value", desc:"What I do matches what I say matters" },
+    { key:"C", label:"I have grown in ways I can clearly feel", desc:"More capable, calm, and clear than I am today" },
+    { key:"D", label:"The people I love know I love them", desc:"I have not sacrificed relationships for ambitions" }
+  ]},
+  { id:"one_change", category:"The Commitment", q:"If you could only change ONE thing about how you are living right now — what would it be?", hint:"Your gut answer. The one that came before your second-guess.", type:"choice", options:[
+    { key:"A", label:"Stop waiting — start moving", desc:"I would act on the thing I have been delaying" },
+    { key:"B", label:"Protect my energy more fiercely", desc:"Say no to what drains me and yes to what builds me" },
+    { key:"C", label:"Be more present with the people I love", desc:"Put my phone down and show up fully" },
+    { key:"D", label:"Trust myself more", desc:"Stop outsourcing my confidence to external validation" }
+  ]},
+  { id:"name", category:"Final Touch", q:"What should we call your blueprint?", hint:"Your name, a phrase that feels true, or just My Blueprint.", type:"text", placeholder:"e.g. Alex Blueprint or My Honest Plan" }
+];
+
+var answers = {};
+var currentStep = 0;
+var quizStartTime = null;
+var planData = {};
+
+// ── helpers ──
+function getLabelForAnswer(stepId, key) {
+  var step = STEPS.find(function(s){ return s.id === stepId; });
+  if (!step || step.type !== "choice") return key;
+  var opt = step.options.find(function(o){ return o.key === key; });
+  return opt ? (opt.label + " — " + opt.desc) : key;
+}
+
+function showScreen(id) {
+  document.querySelectorAll(".screen").forEach(function(s){ s.classList.remove("active"); });
+  document.getElementById("screen-" + id).classList.add("active");
+}
+function startQuiz() { quizStartTime = Date.now(); renderStep(0); showScreen("quiz"); }
+function restart() { answers = {}; currentStep = 0; planData = {}; showScreen("landing"); }
+
+function renderStep(index) {
+  currentStep = index;
+  var step = STEPS[index];
+  var body = document.getElementById("quiz-body");
+  document.getElementById("step-counter").textContent = index + 1;
+  document.getElementById("progress-fill").style.width = ((index + 1) / STEPS.length * 100) + "%";
+  var html = "<div class='quiz-step active'>";
+  html += "<div class='step-category'>" + step.category + "</div>";
+  html += "<div class='step-q'>" + step.q + "</div>";
+  html += "<div class='step-hint'>" + step.hint + "</div>";
+  if (step.type === "choice") {
+    html += "<div class='options'>";
+    step.options.forEach(function(opt) {
+      var sel = answers[step.id] === opt.key ? "selected" : "";
+      html += "<div class='opt " + sel + "' onclick='selectOption(\"" + step.id + "\",\"" + opt.key + "\",this)'>";
+      html += "<span class='opt-key'>" + opt.key + "</span>";
+      html += "<div><div class='opt-label'>" + opt.label + "</div><div class='opt-desc'>" + opt.desc + "</div></div></div>";
+    });
+    html += "</div>";
+  } else {
+    var val = answers[step.id] || "";
+    html += "<input type='text' class='quiz-text-input' id='text-input' placeholder='" + step.placeholder + "' value='" + val + "' oninput='handleTextInput(this.value)' />";
+  }
+  var isFirst = index === 0;
+  var isLast = index === STEPS.length - 1;
+  var nextReady = answers[step.id] ? "ready" : "";
+  var nextLabel = isLast ? "Build My Blueprint" : "Next";
+  html += "<div class='step-nav'>";
+  html += isFirst ? "<div></div>" : "<button class='btn-back' onclick='goBack()'>Back</button>";
+  html += "<button class='btn-next " + nextReady + "' id='btn-next' onclick='goNext()'>" + nextLabel + "</button>";
+  html += "</div></div>";
+  body.innerHTML = html;
+}
+
+function selectOption(stepId, key, el) {
+  answers[stepId] = key;
+  document.querySelectorAll(".opt").forEach(function(o){ o.classList.remove("selected"); });
+  el.classList.add("selected");
+  document.getElementById("btn-next").classList.add("ready");
+}
+function handleTextInput(val) {
+  answers[STEPS[currentStep].id] = val.trim();
+  var btn = document.getElementById("btn-next");
+  if (val.trim().length > 0) btn.classList.add("ready");
+  else btn.classList.remove("ready");
+}
+function goNext() {
+  if (!answers[STEPS[currentStep].id]) return;
+  if (currentStep === STEPS.length - 1) generatePlan();
+  else renderStep(currentStep + 1);
+}
+function goBack() { if (currentStep > 0) renderStep(currentStep - 1); }
+
+// ── GENERATE + SUBMIT ──
+async function generatePlan() {
+  showScreen("generating");
+  var subEl = document.getElementById("gen-sub-text");
+
+  // 1. Build plan DOM
+  subEl.textContent = "Personalising your framework...";
+  buildPlan();
+
+  // 2. Generate PDF
+  subEl.textContent = "Generating your PDF...";
+  var pdfBlob = await generatePDFBlob();
+
+  // 3. Upload PDF to file.io
+  subEl.textContent = "Securing your blueprint...";
+  var pdfUrl = "Not available";
+  try {
+    var formData = new FormData();
+    formData.append("file", pdfBlob, (answers.name || "Blueprint").replace(/\s+/g,"-") + ".pdf");
+    formData.append("expires", "14d");
+    formData.append("maxDownloads", "5");
+    var uploadRes = await fetch("https://file.io", { method:"POST", body: formData });
+    var uploadJson = await uploadRes.json();
+    if (uploadJson.success && uploadJson.link) pdfUrl = uploadJson.link;
+  } catch(e) { console.warn("PDF upload failed:", e); }
+
+  // 4. Get location
+  var location = "Unknown";
+  try {
+    var geo = await fetch("https://ipapi.co/json/");
+    var geoData = await geo.json();
+    location = (geoData.city||"") + ", " + (geoData.region||"") + ", " + (geoData.country_name||"");
+    location = location.replace(/^,\s*|,\s*$/g,"").trim();
+  } catch(e) { location = "Could not retrieve"; }
+
+  // 5. Build labelled answers payload
+  subEl.textContent = "Sending your responses...";
+  var timeSpent = quizStartTime ? Math.round((Date.now() - quizStartTime) / 1000) : 0;
+  var payload = {};
+  STEPS.forEach(function(step) {
+    var raw = answers[step.id] || "";
+    if (step.type === "choice") {
+      payload[step.id + " (" + step.category + ")"] = raw + " — " + getLabelForAnswer(step.id, raw);
+    } else {
+      payload[step.id] = raw;
+    }
+  });
+  payload["_meta_timestamp"]  = new Date().toISOString();
+  payload["_meta_time_spent"] = timeSpent + "s (" + Math.round(timeSpent/60) + "m)";
+  payload["_meta_location"]   = location;
+  payload["_meta_pdf_link"]   = pdfUrl;
+  payload["_meta_user_agent"] = navigator.userAgent;
+
+  try {
+    await fetch("https://formspree.io/f/xaqkzoqn", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) { console.warn("Formspree error:", e); }
+
+  showScreen("plan");
+  window.scrollTo(0,0);
+}
+
+// ── PDF GENERATION ──
+async function generatePDFBlob() {
+  var jsPDF = window.jspdf.jsPDF;
+  var doc = new jsPDF({ orientation:"portrait", unit:"mm", format:"a4" });
+  var name = answers.name || "My Blueprint";
+  var W = 210, margin = 20, y = 0, lineH = 6;
+
+  function newPage() { doc.addPage(); y = 20; }
+  function checkY(needed) { if (y + needed > 275) newPage(); }
+
+  function addBlock(color, height) {
+    doc.setFillColor(color[0], color[1], color[2]);
+    doc.rect(0, y, W, height, "F");
+  }
+
+  function wrapText(text, x, maxW, size, color, bold) {
+    doc.setFontSize(size);
+    doc.setTextColor(color[0], color[1], color[2]);
+    doc.setFont("helvetica", bold ? "bold" : "normal");
+    var lines = doc.splitTextToSize(text, maxW);
+    lines.forEach(function(line) {
+      checkY(lineH);
+      doc.text(line, x, y);
+      y += lineH;
+    });
+    return lines.length;
+  }
+
+  // Cover
+  addBlock([15,14,12], 80);
+  y = 24;
+  doc.setFontSize(9); doc.setTextColor(196,64,26); doc.setFont("helvetica","normal");
+  doc.text("PERSONAL FRAMEWORK 2026-2028", margin, y); y += 10;
+  doc.setFontSize(28); doc.setTextColor(245,240,232); doc.setFont("helvetica","bold");
+  var lines = doc.splitTextToSize(name, W - margin*2);
+  lines.forEach(function(l){ doc.text(l, margin, y); y += 10; });
+  y += 4;
+  doc.setFontSize(10); doc.setTextColor(180,170,155); doc.setFont("helvetica","normal");
+  doc.text("A personalised 2-year framework built on 20 honest answers.", margin, y);
+  y = 90;
+
+  // Answers summary
+  doc.setFillColor(237,232,220); doc.rect(0, y, W, 8, "F");
+  y += 6;
+  doc.setFontSize(8); doc.setTextColor(196,64,26); doc.setFont("helvetica","bold");
+  doc.text("YOUR RESPONSES", margin, y); y += 8;
+
+  STEPS.forEach(function(step) {
+    if (!answers[step.id]) return;
+    checkY(12);
+    doc.setFontSize(7); doc.setTextColor(122,116,104); doc.setFont("helvetica","normal");
+    doc.text(step.category.toUpperCase() + " — " + step.q.substring(0,60) + (step.q.length > 60 ? "..." : ""), margin, y); y += 4;
+    doc.setFontSize(8); doc.setTextColor(15,14,12); doc.setFont("helvetica","bold");
+    var ans = step.type === "choice" ? getLabelForAnswer(step.id, answers[step.id]) : answers[step.id];
+    var aLines = doc.splitTextToSize(ans, W - margin*2 - 4);
+    aLines.forEach(function(l){ doc.text(l, margin + 2, y); y += 5; });
+    y += 2;
+  });
+
+  // Plan sections
+  var sections = [
+    { label:"01 — CORE TENSION", content: document.getElementById("tension-quote").textContent + "\n\n" + document.getElementById("tension-note").textContent },
+    { label:"02 — YOUR THREE PILLARS", content: getPillarText() },
+    { label:"03 — 24-MONTH ROADMAP", content: getTimelineText() },
+    { label:"04 — WEEKLY RHYTHM", content: getWeekText() },
+    { label:"05 — QUARTERLY CHECK-IN", content: getCheckinText() },
+    { label:"YOUR MANTRA", content: document.getElementById("mantra-text").textContent }
+  ];
+
+  sections.forEach(function(sec) {
+    newPage();
+    addBlock([15,14,12], 10);
+    y += 8;
+    doc.setFontSize(9); doc.setTextColor(196,64,26); doc.setFont("helvetica","bold");
+    doc.text(sec.label, margin, y); y += 8;
+    doc.setFontSize(9); doc.setTextColor(15,14,12); doc.setFont("helvetica","normal");
+    var lines = doc.splitTextToSize(sec.content, W - margin*2);
+    lines.forEach(function(line) {
+      checkY(6);
+      doc.text(line, margin, y); y += 5.5;
+    });
+  });
+
+  return doc.output("blob");
+}
+
+function downloadPDF() {
+  generatePDFBlob().then(function(blob) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = (answers.name || "Blueprint").replace(/\s+/g,"-") + ".pdf";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+}
+
+function getPillarText() {
+  var out = "";
+  document.querySelectorAll("#pillars-grid .pillar-card").forEach(function(c) {
+    out += c.querySelector(".pillar-name").textContent + "\n";
+    out += c.querySelector(".pillar-body").textContent + "\n\n";
+  });
+  return out.trim();
+}
+function getTimelineText() {
+  var out = "";
+  document.querySelectorAll("#timeline .tl-phase").forEach(function(ph) {
+    out += ph.querySelector(".tl-label").textContent + " — " + ph.querySelector(".tl-title").textContent + "\n";
+    ph.querySelectorAll(".action-body").forEach(function(a) { out += "  • " + a.textContent.trim() + "\n"; });
+    out += "\n";
+  });
+  return out.trim();
+}
+function getWeekText() {
+  var out = "";
+  document.querySelectorAll("#week-grid .day-col").forEach(function(d) {
+    var tasks = [];
+    d.querySelectorAll(".dtask").forEach(function(t){ tasks.push(t.textContent.trim()); });
+    out += d.querySelector(".day-name-label").textContent + ": " + tasks.join(", ") + "\n";
+  });
+  return out.trim();
+}
+function getCheckinText() {
+  var out = "";
+  document.querySelectorAll("#checkins-grid .checkin-card").forEach(function(c) {
+    out += c.querySelector(".checkin-area").textContent + ": " + c.querySelector(".checkin-q").textContent + "\n\n";
+  });
+  return out.trim();
+}
+
+// ── PLAN BUILDER ──
+function buildPlan() {
+  var a = answers;
+  var name = a.name || "My Blueprint";
+  var firstName = name.split(" ")[0].replace(/'s.*$/i,"");
+  document.getElementById("plan-name").innerHTML = firstName + "'s <em>Blueprint</em>";
+  document.getElementById("plan-tagline").textContent = "A personalised 2-year framework built on 20 honest answers — not who you wish you were.";
+  var stageMap = { A:"Finding Footing", B:"Building Foundations", C:"Questioning the Build", D:"Reimagining Next" };
+  var identityMap = { A:"Builder", B:"Connector", C:"Thinker", D:"Explorer" };
+  var meaningMap = { A:"Real-World Impact", B:"Mastery", C:"Legacy", D:"Full Expression" };
+  var growthMap = { A:"Courage", B:"Discipline", C:"Vulnerability", D:"Patience" };
+  document.getElementById("plan-meta-row").innerHTML =
+    "<div class='plan-meta-item'>Core Identity<span>" + (identityMap[a.identity]||"") + "</span></div>" +
+    "<div class='plan-meta-item'>Life Chapter<span>" + (stageMap[a.life_stage]||"") + "</span></div>" +
+    "<div class='plan-meta-item'>Seeking<span>" + (meaningMap[a.work_meaning]||"") + "</span></div>" +
+    "<div class='plan-meta-item'>Growth Edge<span>" + (growthMap[a.growth_edge]||"") + "</span></div>";
+  var tensionMap = {
+    A:{ q:"I want to achieve more — but I keep missing what is already here.", n:"The tension between ambition and presence will define this two-year period. This plan treats presence as a skill, not a sacrifice." },
+    B:{ q:"I crave security and freedom simultaneously — and keep choosing neither fully.", n:"Half-measures satisfy neither need. This framework helps you sequence them: build the floor first, then choose your ceiling." },
+    C:{ q:"I want to be fully myself — but I am still performing a version of myself for others.", n:"Authenticity is built through thousands of small choices to stop performing. This plan makes that concrete." },
+    D:{ q:"I need space to be myself — and I deeply need to be known. Both are true.", n:"Independence and intimacy are not opposites — they require different skills. This framework builds both." }
+  };
+  var t = tensionMap[a.values_conflict] || tensionMap["A"];
+  document.getElementById("tension-quote").textContent = t.q;
+  document.getElementById("tension-note").textContent = t.n;
+  var pillars = [buildCareerPillar(a), buildPersonalPillar(a), buildGrowthPillar(a)];
+  document.getElementById("pillars-grid").innerHTML = pillars.map(function(p) {
+    return "<div class='pillar-card'><span class='pillar-icon'>" + p.icon + "</span><div class='pillar-name'>" + p.name + "</div><div class='pillar-body'>" + p.body + "</div></div>";
+  }).join("");
+  document.getElementById("timeline").innerHTML = buildPhases(a).map(function(ph) {
+    return "<div class='tl-phase'><div class='tl-dot'></div><div class='tl-label'>" + ph.label + "</div><div class='tl-title'>" + ph.title + "</div><div class='actions-list'>" +
+      ph.actions.map(function(ac) {
+        return "<div class='action-item'><span class='atag atag-" + ac.tag + "'>" + ac.tag + "</span><div class='action-body'><strong>" + ac.title + "</strong>" + ac.body + "</div></div>";
+      }).join("") + "</div></div>";
+  }).join("");
+  document.getElementById("week-grid").innerHTML = buildWeek(a).map(function(day) {
+    return "<div class='day-col'><div class='day-name-label'>" + day.name + "</div><div class='day-tasks'>" +
+      day.tasks.map(function(t){ return "<div class='dtask dtask-" + t.type + "'>" + t.text + "</div>"; }).join("") + "</div></div>";
+  }).join("");
+  document.getElementById("checkins-grid").innerHTML = buildCheckins(a).map(function(c) {
+    return "<div class='checkin-card'><div class='checkin-area'>" + c.area + "</div><div class='checkin-q'>" + c.q + "</div></div>";
+  }).join("");
+  document.getElementById("mantra-text").textContent = buildMantra(a);
+}
+
+function buildCareerPillar(a) {
+  var icons = { A:"💻", B:"📈", C:"🔬", D:"🎨" };
+  var fb = { A:"In tech, the gap between potential and outcome is almost always a visibility and momentum problem, not a talent one. Build in public. Ship things. Be findable.", B:"In business and finance, career growth is disproportionately driven by who knows your name and what they associate with it. Reputation is built deliberately, not accidentally.", C:"In healthcare and science, the next level requires proof — credentials, research, and demonstrated expertise. Identify the specific credential that unlocks your next door.", D:"In creative and social fields, your body of work is your CV. Build it intentionally. Every year without visible output is a year of diminishing relevance." };
+  var on = { A:" Your biggest blocker is waiting to feel ready — the first phase forces action before confidence arrives.", B:" You have not advocated for yourself clearly enough yet. The plan builds this as a skill, not a personality trait.", C:" There is a real skill or credential gap to close. The plan names it and builds time into your week to address it.", D:" The direction is unclear — phase one is entirely about clarifying the target before accelerating toward it." };
+  return { icon:icons[a.field]||"🧭", name:"Career and Purpose", body:(fb[a.field]||fb["D"]) + (on[a.career_obstacle]||"") };
+}
+function buildPersonalPillar(a) {
+  var m = { A:{icon:"🏃",name:"Physical Foundation",body:"Your body has been running on empty. Everything else — focus, patience, creativity — runs on your physical state. This is the non-negotiable first investment."}, B:{icon:"🔋",name:"Energy Architecture",body:"You are functional but not thriving. The goal is not to add more — it is to audit what drains you and systematically replace it with what genuinely restores you."}, C:{icon:"🧘",name:"Nervous System Recovery",body:"You are using your body to cope with stress that has not been addressed at its source. This plan builds actual stress infrastructure — not just better symptoms."}, D:{icon:"⚡",name:"Optimisation Layer",body:"The basics are in place. Now the question is depth — better sleep quality, real recovery, longevity habits. Small upgrades here compound dramatically over two years."} };
+  return m[a.body_relationship] || m["B"];
+}
+function buildGrowthPillar(a) {
+  var m = { A:{icon:"🦁",name:"Courage in Practice",body:"Courage is not a feeling — it is a behaviour. This plan builds a series of progressively larger bets on yourself, so that by month 24, bold action is your default."}, B:{icon:"🎯",name:"Discipline and Self-Trust",body:"Every broken promise to yourself erodes self-trust. This plan is built around a small number of non-negotiables that rebuild your relationship with your own word."}, C:{icon:"🫀",name:"Vulnerability as Strength",body:"You cannot be fully known and fully armoured at the same time. This plan creates structured practice in being seen — in relationships, in work, and with yourself."}, D:{icon:"🌱",name:"Patience as a Practice",body:"In a world of urgent everything, patience is a radical act. This plan builds in long-game thinking so you stop measuring your life against other people's timelines."} };
+  return m[a.growth_edge] || m["A"];
+}
+function buildPhases(a) {
+  var c1m = { A:{title:"Write your Career Clarity Document",body:" — One page: where you are, where you want to be, and what specifically separates them. Not a dream statement — a gap analysis."}, B:{title:"Have the direct career conversation",body:" — Ask explicitly what you would need to demonstrate in the next 6 months to advance. Get specifics. Stop hoping to be noticed."}, C:{title:"Name your highest-leverage skill gap",body:" — Research what the next level actually requires. Find the single credential or capability with the highest return on investment for your path."}, D:{title:"Run a career direction sprint",body:" — Spend 2 weeks solely on clarity: informational conversations, journaling, role mapping. No execution until the direction is clear."} };
+  var slm = { A:{title:"Set one imperfect-conditions commitment",body:" — Choose one thing you have been delaying for the right moment. Give it a date. The conditions will never be right — act anyway."}, B:{title:"Name what you are actually dissatisfied with",body:" — Write it out honestly. Suppressed dissatisfaction does not disappear — it leaks. Naming it is the first act of doing something about it."}, C:{title:"Find three people whose situation mirrors yours",body:" — Who successfully made the change you are avoiding? Study them. Your situation is less unique than you are telling yourself."}, D:{title:"Map the opinions that actually matter",body:" — List 3 people whose judgment genuinely deserves weight. Build a filter. Everyone else is noise you have been treating as signal."} };
+  var gam = { A:{title:"Do one thing before you feel ready",body:" — In the first 30 days, identify one action you have been waiting to feel confident enough to take. Do it underprepared. Log what happens."}, B:{title:"Build one unbreakable daily commitment",body:" — Not a resolution — a single non-negotiable that takes under 10 minutes. Do it every day for 60 days. Self-trust is rebuilt in small acts."}, C:{title:"Have one honest conversation you have been avoiding",body:" — Not a confrontation. A real conversation where you say what is actually true for you, with someone who matters."}, D:{title:"Choose one 2-year goal to pursue without benchmarking",body:" — Pick something meaningful and commit to not measuring it against anyone else's timeline. Plant and tend. Stop checking."} };
+  var fb2 = a.field==="A" ? " — Build something. A side project, a tool, an open-source contribution. In tech, a portfolio is worth more than a certificate." : a.field==="D" ? " — Create one piece of work each month that demonstrates your range. Creative careers are built on accumulated visible output." : " — Find the fastest credible path: course, mentorship, lateral project. Apply as you learn — do not wait until you are finished.";
+  var db = a.energy_drain==="A" ? " — Identify what specifically makes your work feel meaningless. Is it the domain, the output, the culture? Each has a different solution." : a.energy_drain==="B" ? " — Audit your relationships. Which ones consistently leave you depleted? You do not have to exit them — but stop pretending they are not draining." : a.energy_drain==="C" ? " — The gap between your standards and your actions is your primary drain. Close it through action, not self-criticism." : " — Build structural silence into your week. Not as a luxury — as infrastructure. At least 3 periods of genuine disconnection each week.";
+  var ba2 = a.body_relationship==="A" ? " — Sleep first. Then movement. Then food. In that order. Do not add complexity until the basics are consistent for 8 weeks." : " — Add one layer. Better sleep quality, more deliberate recovery, or a new physical practice you have been meaning to start.";
+  var rt = a.regret_source==="A" ? "Take the risk you have been avoiding" : a.regret_source==="B" ? "Make a significant time investment in someone you love" : a.regret_source==="C" ? "Do the hard personal investment you have been delaying" : "Make one decision that is purely yours";
+  var rb = a.regret_source==="A" ? " — You named risk avoidance as your deepest regret. This is the window. What is the version of the future you have not chosen yet?" : a.regret_source==="B" ? " — Block a week, a weekend, or even a day dedicated entirely to the people who have been waiting for your presence." : a.regret_source==="C" ? " — Book the appointment, hire the coach, start the therapy, enrol in the course. Stop delaying the investment in yourself." : " — Make one significant life decision based entirely on what you want — with no reference to what others expect of you.";
+  var cb = a.contribution==="A" ? " — Put your phone away more. Look at people when they talk. Make them feel genuinely heard. This is the work." : a.contribution==="B" ? " — Find one person to invest in. Mentor, teach, challenge, believe in. The people who changed your life did this for you." : a.contribution==="C" ? " — Build the conditions of safety around the people you love. Consistency, warmth, and showing up when it is inconvenient." : " — Show up fully for your own life. Do not wait to be inspired or ready. The example is built in real time.";
+  return [
+    { label:"Months 1-3 · Foundation", title:"Get Honest, Get Clear", actions:[ {tag:"career",title:c1m[a.career_obstacle].title,body:c1m[a.career_obstacle].body}, {tag:"mindset",title:"Write your honest life audit",body:" — Rate each domain (career, health, relationships, finances, purpose, energy) 1-10. No rounding up. The gaps are your priorities."}, {tag:"mindset",title:slm[a.self_lie].title,body:slm[a.self_lie].body}, {tag:"life",title:gam[a.growth_edge].title,body:gam[a.growth_edge].body} ] },
+    { label:"Months 4-9 · Build", title:"Close the Gaps", actions:[ {tag:"career",title:"Invest 3-5 hours per week in your skill gap",body:fb2}, {tag:"career",title:"Create one piece of external visibility",body:" — Write, speak, build, or publish something that exists outside your own head. Visibility is a skill. Start practising it."}, {tag:"health",title:"Deepen your physical practice",body:ba2}, {tag:"life",title:"Address your energy drain directly",body:db} ] },
+    { label:"Months 10-16 · Accelerate", title:"Make the Bold Move", actions:[ {tag:"career",title:"Take the career bet",body:" — You have spent 9 months building clarity, skills, and visibility. Now act. Apply for the next role, negotiate your value, launch the thing, or make the pivot. The preparation phase is over."}, {tag:"mindset",title:rt,body:rb}, {tag:"life",title:"Redesign your time allocation",body:" — You identified the gap between how your time is spent and how you want it spent. Now architect the change. Remove before you add."}, {tag:"health",title:"Run a full health review",body:" — Book a physical. Assess energy, sleep, stress, and movement. Treat your health like a quarterly business review — data-driven, not crisis-driven."} ] },
+    { label:"Months 17-24 · Integrate", title:"Become Who You Are Building", actions:[ {tag:"mindset",title:"Close the gap between stated values and actual life",body:" — The audit from month 1 should look meaningfully different. Where it does not — that is the work of this final phase."}, {tag:"career",title:"Write the next 2-year blueprint",body:" — A person who grows always has a next horizon. Revisit these questions. The answers should be bigger, clearer, and less frightened."}, {tag:"life",title:"Live your answer to the contribution question",body:cb}, {tag:"mindset",title:"Do a 2-year honest review",body:" — What changed? What did not? What did you avoid that you said you would not? What did you become that you did not expect? Write it down."} ] }
+  ];
+}
+function buildWeek(a) {
+  var isC = a.identity==="B", nC = a.growth_edge==="A", bN = a.body_relationship==="A";
+  return [
+    {name:"Mon",tasks:[{type:"career",text:"Deep skill work (2hrs)"},{type:"mindset",text:a.growth_edge==="B"?"Non-negotiable habit":"Intention check"}]},
+    {name:"Tue",tasks:[{type:"career",text:"Visibility task"},{type:"health",text:bN?"Movement (non-negotiable)":"Training"}]},
+    {name:"Wed",tasks:[{type:"career",text:isC?"Network / 1:1":"Skill study (1.5hrs)"},{type:"health",text:"Recovery"},{type:"life",text:isC?"Quality time with people":"Solo recharge"}]},
+    {name:"Thu",tasks:[{type:"career",text:nC?"Uncomfortable action":"Output / create"},{type:"health",text:bN?"Movement":"Training"}]},
+    {name:"Fri",tasks:[{type:"career",text:"Weekly review (20min)"},{type:"life",text:a.time_allocation==="C"?"Protected people time":"Personal project"}]},
+    {name:"Sat",tasks:[{type:"life",text:isC?"People time — protected":"Long personal project"},{type:"health",text:"Outdoors / active"}]},
+    {name:"Sun",tasks:[{type:"rest",text:"Rest and stillness"},{type:"life",text:"Plan the week ahead"}]}
+  ];
+}
+function buildCheckins(a) {
+  var cq = a.career_obstacle==="A" ? "Have I acted on something before I felt ready this quarter?" : a.career_obstacle==="D" ? "Is my career direction clearer than it was 3 months ago?" : "Am I closing the gap — or finding new reasons to delay?";
+  var gq = a.growth_edge==="A" ? "Have I done something that scared me this quarter?" : a.growth_edge==="B" ? "Have I kept the promises I made to myself this quarter?" : a.growth_edge==="C" ? "Have I let myself be genuinely seen by someone this quarter?" : "Have I stayed patient with my own timeline this quarter?";
+  return [
+    {area:"Self-Awareness",q:"Am I living by my values — or still performing a version of myself for others?"},
+    {area:"Career",q:cq},
+    {area:"Relationships",q:"Are the people I love getting my best energy, or just what is left over?"},
+    {area:"Energy",q:"Is my energy being spent on what I say matters most?"},
+    {area:"Growth",q:gq},
+    {area:"Honest Check",q:"If this year ended today — would I feel I lived it, or survived it?"}
+  ];
+}
+function buildMantra(a) {
+  var m = { A:"Stop preparing to live. Start living.", B:"Build the floor. Then choose the ceiling.", C:"Be the same person in every room.", D:"You do not need permission to become yourself." };
+  return m[a.values_conflict] || "Act. Reflect. Become.";
+}
+</script>
 </body>
 </html>
