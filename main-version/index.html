@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2-Year Life Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #0f0e0c;
+  --paper: #f5f0e8;
+  --cream: #ede8dc;
+  --accent: #c4401a;
+  --gold: #b8962e;
+  --muted: #7a7468;
+  --light: #e2ddd4;
+  --green: #2d6a4f;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; flex-direction: column; }
+
+#screen-landing {
+  background: var(--ink);
+  color: var(--paper);
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 60px;
+  position: relative;
+  overflow: hidden;
+}
+#screen-landing::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 560px; height: 560px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,240,232,0.07);
+  pointer-events: none;
+}
+#screen-landing::after {
+  content: '';
+  position: absolute;
+  bottom: -180px; left: -80px;
+  width: 420px; height: 420px;
+  border-radius: 50%;
+  border: 1px solid rgba(245,240,232,0.04);
+  pointer-events: none;
+}
+.landing-inner { max-width: 680px; position: relative; z-index: 1; }
+.land-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards 0.1s;
+}
+.land-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(44px, 8vw, 88px);
+  line-height: 1.0;
+  font-weight: 700;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.25s;
+}
+.land-title em { font-style: italic; color: var(--gold); }
+.land-desc {
+  margin-top: 28px;
+  font-size: 16px;
+  color: rgba(245,240,232,0.6);
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.4s;
+}
+.land-features {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.55s;
+}
+.land-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(245,240,232,0.7);
+}
+.land-feature::before {
+  content: '→';
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+}
+.land-cta {
+  margin-top: 52px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.7s;
+}
+.btn-primary {
+  background: var(--accent);
+  color: var(--paper);
+  border: none;
+  padding: 16px 40px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  border-radius: 2px;
+}
+.btn-primary:hover { background: #a8351a; transform: translateY(-1px); }
+.land-time {
+  margin-top: 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(245,240,232,0.3);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 640px) {
+  #screen-landing { padding: 60px 28px; }
+}
+</style>
+</head>
+<body>
+
+<div id="screen-landing" class="screen active">
+  <div class="landing-inner">
+    <div class="land-label">2-Year Blueprint Tool · 20 Questions</div>
+    <h1 class="land-title">Know Yourself.<br><em>Build Your Life.</em></h1>
+    <p class="land-desc">20 thought-provoking questions about who you really are — your values, fears, contradictions, and desires. The result is a personalised 2-year blueprint built around who you are, not who you think you should be.</p>
+    <div class="land-features">
+      <div class="land-feature">Deep self-awareness questions — personally and professionally</div>
+      <div class="land-feature">A phased 24-month roadmap with specific actions</div>
+      <div class="land-feature">Weekly rhythm tailored to your life stage</div>
+      <div class="land-feature">Printable and shareable — no account needed</div>
+    </div>
+    <div class="land-cta">
+      <button class="btn-primary" onclick="window.location.href='./full-version/'">Begin My Blueprint</button>
+      <div class="land-time">Takes about 5 minutes</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
