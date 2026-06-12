@@ -1,0 +1,331 @@
+{
+  "profile": {
+    "name": "Ackhil Nityanandam",
+    "photo": "profile-pic.jpg",
+    "headline": "Product Manager · AI & SaaS",
+    "location": "London, UK",
+    "email": "ackhil88@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/ackhil/",
+    "github": "https://github.com/ackhil",
+    "positioning": "AI-enabled product manager with 15 years in digital products and 7+ in product management. I build user-centric SaaS products powered by applied AI — smart, frugal, and measured by outcomes.",
+    "openTo": "Open to conversations about senior product roles in AI-driven SaaS."
+  },
+  "metrics": [
+    {
+      "id": "m1",
+      "label": "ARR growth",
+      "value": "6.7×",
+      "context": "£144K → £960K in 9 months",
+      "baseline": "£144K ARR",
+      "measured": "",
+      "role": "Led growth product initiatives",
+      "public": true
+    },
+    {
+      "id": "m2",
+      "label": "Ops timeline",
+      "value": "−95%",
+      "context": "6-day manual process → hours",
+      "baseline": "6 days",
+      "measured": "",
+      "role": "Product lead, AI-enabled solution",
+      "public": true
+    },
+    {
+      "id": "m3",
+      "label": "Task success",
+      "value": "+35%",
+      "context": "AI job-search flow, user testing",
+      "baseline": "",
+      "measured": "Moderated usability testing",
+      "role": "Product manager",
+      "public": true
+    }
+  ],
+  "caseStudies": [
+    {
+      "id": "cs1",
+      "title": "AI-first job search experience",
+      "domain": "HRTech · LLM",
+      "situation": "Job seekers struggled with discovery and application prep in the existing flow.",
+      "task": "Redesign discovery and prep with applied AI to cut time-to-application.",
+      "action": "Introduced LLM-driven personalised matches and tailored prep content; designed an eval pipeline that caught JSON format errors before scale.",
+      "result": "+35% task success rate in user testing.",
+      "learning": "Evals catch failures early — design them before the feature, not after.",
+      "cut30": "",
+      "cut2min": "",
+      "competencies": [
+        "AI judgement",
+        "Customer discovery"
+      ],
+      "public": true,
+      "status": "draft"
+    },
+    {
+      "id": "cs2",
+      "title": "Scaling ARR 6.7× in 9 months",
+      "domain": "SaaS · Growth",
+      "situation": "Small business with £144K ARR and friction across the core funnel.",
+      "task": "Align roadmap to high-leverage growth levers.",
+      "action": "Reduced funnel friction, improved retention loops, prioritised against growth impact.",
+      "result": "£960K ARR within 9 months.",
+      "learning": "",
+      "cut30": "",
+      "cut2min": "",
+      "competencies": [
+        "Business impact"
+      ],
+      "public": true,
+      "status": "draft"
+    },
+    {
+      "id": "cs3",
+      "title": "Cutting a 6-day ops process to hours",
+      "domain": "Operations · AI",
+      "situation": "A manual operational process took 6 days end-to-end.",
+      "task": "Ship an AI-enabled product solution to collapse the timeline.",
+      "action": "Drove cross-functional delivery across engineering, ops and QA.",
+      "result": "Process now completes in hours (~95% reduction).",
+      "learning": "",
+      "cut30": "",
+      "cut2min": "",
+      "competencies": [
+        "Execution"
+      ],
+      "public": true,
+      "status": "draft"
+    }
+  ],
+  "artefacts": [
+    {
+      "id": "a1",
+      "title": "LLM eval pipeline design",
+      "type": "Eval / AI",
+      "link": "",
+      "caseStudy": "cs1",
+      "public": false,
+      "notes": "Write-up of the JSON-format eval approach from the job-search project."
+    }
+  ],
+  "timeline": [
+    {
+      "id": "t1",
+      "role": "Product Manager",
+      "org": "Tata Consultancy Services",
+      "dates": "Dec 2018 – present",
+      "where": "London, UK",
+      "scope": "Cloud product-building arm; AI-enabled SaaS products.",
+      "public": true
+    },
+    {
+      "id": "t2",
+      "role": "Learning Consultant",
+      "org": "Tesco HSC",
+      "dates": "Jan 2015 – Nov 2018",
+      "where": "Bengaluru, India",
+      "scope": "UK retail; pilot team on Tesco's largest UK transformation.",
+      "public": true
+    },
+    {
+      "id": "t3",
+      "role": "Digital & Creative Strategist",
+      "org": "Pepper Square",
+      "dates": "Aug 2012 – Jan 2015",
+      "where": "Bangalore, India",
+      "scope": "UI/UX + technology; led team to Apple App Store approval.",
+      "public": true
+    },
+    {
+      "id": "t4",
+      "role": "Instructional Designer",
+      "org": "EI Design",
+      "dates": "Jan 2011 – May 2012",
+      "where": "Bengaluru, India",
+      "scope": "Adult & K12 learning design.",
+      "public": true
+    },
+    {
+      "id": "t5",
+      "role": "B.E. Electronics & Communications",
+      "org": "EPCET (VTU)",
+      "dates": "2006 – 2010",
+      "where": "Bangalore, India",
+      "scope": "Education",
+      "public": true
+    }
+  ],
+  "skills": [
+    {
+      "id": "s1",
+      "name": "Applied AI / LLMs",
+      "evidence": [
+        "cs1"
+      ]
+    },
+    {
+      "id": "s2",
+      "name": "LLM evals",
+      "evidence": [
+        "cs1"
+      ]
+    },
+    {
+      "id": "s3",
+      "name": "Growth & monetisation",
+      "evidence": [
+        "cs2"
+      ]
+    },
+    {
+      "id": "s4",
+      "name": "Roadmap prioritisation",
+      "evidence": [
+        "cs2"
+      ]
+    },
+    {
+      "id": "s5",
+      "name": "Cross-functional delivery",
+      "evidence": [
+        "cs3"
+      ]
+    },
+    {
+      "id": "s6",
+      "name": "User research",
+      "evidence": [
+        "cs1"
+      ]
+    },
+    {
+      "id": "s7",
+      "name": "Discovery & design thinking",
+      "evidence": []
+    },
+    {
+      "id": "s8",
+      "name": "Stakeholder management",
+      "evidence": []
+    },
+    {
+      "id": "s9",
+      "name": "Agile / SAFe",
+      "evidence": []
+    },
+    {
+      "id": "s10",
+      "name": "Pricing & packaging",
+      "evidence": []
+    },
+    {
+      "id": "s11",
+      "name": "Data-driven decisions",
+      "evidence": []
+    }
+  ],
+  "learning": [
+    {
+      "id": "l1",
+      "title": "Certified SAFe® PO/PM",
+      "type": "Certification",
+      "expires": "2025-03-31",
+      "status": "expired",
+      "public": false
+    },
+    {
+      "id": "l2",
+      "title": "Continuous Discovery Habits — Teresa Torres",
+      "type": "Book",
+      "expires": "",
+      "status": "in progress",
+      "public": false
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "q1",
+      "quote": "A great mentor with rich experience in instructional design and design thinking. Innovative and always open to ideas.",
+      "who": "Sunayana Goswami",
+      "context": "Manager, Walmart Global Tech — worked together",
+      "public": true
+    },
+    {
+      "id": "q2",
+      "quote": "Came across as a person who really wants to make a mark in every field and every task he takes up.",
+      "who": "Anirban Das",
+      "context": "Co-founder, Blueprint Collective",
+      "public": true
+    }
+  ],
+  "competencyList": [
+    "Business impact",
+    "Execution",
+    "AI judgement",
+    "Influence",
+    "Conflict",
+    "Failure & learning",
+    "Prioritisation",
+    "Customer discovery"
+  ],
+  "actions": {
+    "todos": [
+      {
+        "id": "td1",
+        "text": "Complete case-study interview: AI job search (results + baselines)",
+        "priority": "p1",
+        "done": false
+      },
+      {
+        "id": "td2",
+        "text": "Renew or remove expired SAFe certification",
+        "priority": "p1",
+        "done": false
+      },
+      {
+        "id": "td3",
+        "text": "Replace Notion placeholder projects with real case studies",
+        "priority": "p2",
+        "done": false
+      },
+      {
+        "id": "td4",
+        "text": "Request 2-3 fresh recommendations tied to product outcomes",
+        "priority": "p2",
+        "done": false
+      },
+      {
+        "id": "td5",
+        "text": "Add an 'influence without authority' story to the story bank",
+        "priority": "p2",
+        "done": false
+      }
+    ],
+    "reading": [
+      {
+        "id": "r1",
+        "title": "Lenny's Newsletter",
+        "url": "https://www.lennysnewsletter.com/",
+        "type": "feed",
+        "status": "subscribed",
+        "tags": "product, growth"
+      },
+      {
+        "id": "r2",
+        "title": "Aakash Gupta — Product Growth",
+        "url": "https://www.news.aakashg.com/",
+        "type": "feed",
+        "status": "subscribed",
+        "tags": "product, career"
+      },
+      {
+        "id": "r3",
+        "title": "Continuous Discovery Habits — key takeaways",
+        "url": "https://www.producttalk.org/",
+        "type": "article",
+        "status": "to read",
+        "tags": "discovery"
+      }
+    ]
+  },
+  "activity": []
+}
